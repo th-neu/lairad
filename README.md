@@ -93,8 +93,8 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Python]][Python-url]
-* [![React][Flask]][Flaskl]
+* [![Python][Python.org]][Python-url]
+* [![Flask][github.com/pallets/flask/]][Flaskl]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
