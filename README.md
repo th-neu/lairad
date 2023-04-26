@@ -189,7 +189,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - [@twitter_handle](https://twitter.com/LAIRAD) - email@email_client.com
 
 Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARAD)
 
@@ -200,7 +200,7 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
+* [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 * []()
 * []()
 
