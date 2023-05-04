@@ -93,7 +93,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 ### Built With
 
 * [![Python][Python.org]][Python-url]
-* [![Flask][github.com/pallets/flask]][Flask-url]
+* [![Flask][Flask.com]][Flask-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -223,7 +223,7 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 [product-screenshot]: images/screenshot.png
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[Flask.com] https://img.shields.io/badge/Flask-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Flask-url] https://flask.palletsprojects.com/
-[Python.com] https://img.shields.io/badge/Python-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Python-url] https://www.python.org/
+[Flask.com]: https://img.shields.io/badge/Flask-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Flask-url]: https://flask.palletsprojects.com/
+[Python.org]: https://img.shields.io/badge/Python-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Python-url]: https://www.python.org/
