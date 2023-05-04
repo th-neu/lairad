@@ -8,4 +8,4 @@ COPY . /src
 RUN pip install -r /src/requirements.txt
 
 # command to run on container start
-CMD [ "python", "./app.py" ] 
+CMD [ "python", "./src/app.py" ] 
