@@ -10,3 +10,4 @@ MarkupSafe==2.1.2
 packaging==23.1
 python-dotenv==1.0.0
 Werkzeug==2.3.3
+waitress==2.1.2
