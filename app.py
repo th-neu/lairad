@@ -86,6 +86,47 @@ def unauthorized():
     return redirect(url_for('login', next=request.endpoint))
 
 
+# Project listing route
+#@app.route('/project/<projects_id>', methods=['GET', 'POST'])
+#def project(projects_id):
+#   conn = get_db(app)
+#   c = conn.cursor()
+#   c.execute('SELECT * FROM projects WHERE id=?', (projects_id,))
+#   project_id = project[0]
+
+#Define a route for adding a project to the database
+@app.route('/add_project', methods=['GET', 'POST'])
+@login_required
+def add_project():
+    # check if current user is admin
+    if not current_user.is_admin:
+        return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        # Get the project details from the form
+        project_name = request.form['project_name']
+        project_desc = request.form['project_desc']
+        project_goal = request.form['project_goal']
+
+        # Save the project details to the database
+        conn = get_db(app)
+        c = conn.cursor()
+        c.execute('INSERT INTO projects (name, description, goals) VALUES (?, ?, ?)',
+                  (project_name, project_desc, project_goal))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('home'))
+
+    # Render the add user form
+    return render_template('add_project.html')
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html', pic=pic), 404
+
+
 # Define a route for adding a user to the database
 @app.route('/add_user', methods=['GET', 'POST'])
 @login_required
