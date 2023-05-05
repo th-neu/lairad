@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Add User - LAIDAR{% endblock %}
+
+{% block content %}
+	<h1>Add User</h1>
+	<form method="POST">
+		<div class="form-group">
+		<label for="project_name">Project Name</label>
+		<input type="text" name="project_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+		<label for="project_desc">Project Description</label>
+		<input type="project_desc" name="project_desc" class="form-control" required>
+    </div>
+	    <div class="form-group">
+		<label for="project_goal">Project Goal</label>
+		<input type="project_goal" name="project_goal" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+{% endblock %}
