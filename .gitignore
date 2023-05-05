@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # Visual Studio .vs
-.vs
+.vs/
