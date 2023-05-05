@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get install libmariadb3 -y
         shell: bash
       - name: update ldconfig
-        run: sudo touch /etc/ld.so.conf.d/libmariadb.conf && sudo echo "/usr/lib/mariadb/" >> /etc/ld.so.conf.d/libmariadb.conf && sudo ldconfig
+        run: sudo ldconfig
         shell: bash
       - name: Install dependencies
         run: |
