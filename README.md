@@ -159,15 +159,17 @@ Working python installation and pip.
 <!-- USING DOCKER -->
 ### Using docker
 
-Use the installation steps with a virtual environment. Remove # app.py line 224,225 and add # at line 223.
-1. Build image with .env file
+Use the installation steps with a virtual environment. Remove # app.py line 224,225 and add # at line 223. Using --rm to remove the container for testing.
+1. Build the image
    ```cmd
-   python app.py
+	docker build -t your-name/image-name .
    ```
+2. Run the container
+   ```sh
+	docker run --rm -p 5000:5000 your-name/image-name
+	```
 
-Or use docker compose with the provided Dockerfile.
-
-For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at line 223.
+For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at line 223. Using --rm to remove the container for testing.
 
 1. Pull the docker image
    ```sh
@@ -175,7 +177,11 @@ For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at li
 	```
 2. Build the image
    ```sh
-	docker build your-name/image-name . -F Dockerfile.armhf
+	docker build -t your-name/image-name -f Dockerfile.armv7 .
+	```
+3. Run the container
+   ```sh
+	docker run --rm -p 5000:5000 your-name/image-name
 	```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,7 +189,7 @@ For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at li
 ### Environment File Settings
 At least one database (sqlite3 or mariadb at the moment).
 Endpoint for llama-cpp-python
-The Endpoint for koboldcpp API does not work at the moment
+The Endpoint for koboldcpp API does not work at the moment.
 
 ```sh
 ## Secret App key
@@ -246,7 +252,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 - [ ] Translations
     - [ ] German
 
-See the [open issues](https://github.com/th-neu/LIARAD/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/th-neu/lairad/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -284,7 +290,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 lairad@runbox.com
 
-Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARAD)
+Project Link: [https://github.com/th-neu/lairad](https://github.com/th-neu/lairad)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -305,16 +311,18 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/th-neu/LIARAD.svg?style=for-the-badge
-[contributors-url]: https://github.com/th-neu/LIARAD/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/th-neu/LIARAD.svg?style=for-the-badge
-[forks-url]: https://github.com/th-neu/LIARAD/network/members
-[stars-shield]: https://img.shields.io/github/stars/th-neu/LIARAD.svg?style=for-the-badge
-[stars-url]: https://github.com/th-neu/LIARAD/stargazers
-[issues-shield]: https://img.shields.io/github/issues/th-neu/LIARAD.svg?style=for-the-badge
-[issues-url]: https://github.com/th-neu/LIARAD/issues
-[license-shield]: https://img.shields.io/github/license/th-neu/LIARAD.svg?style=for-the-badge
-[license-url]: https://github.com/th-neu/LIARAD/blob/master/LICENSE.md
+[contributors-shield]: https://img.shields.io/github/contributors/th-neu/lairad.svg?style=for-the-badge
+[contributors-url]: https://github.com/th-neu/lairad/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/th-neu/lairad.svg?style=for-the-badge
+[forks-url]: https://github.com/th-neu/lairad/network/members
+[tests-shield]: https://github.com/th-neu/lairad/actions/workflows/python-tests.yml/badge.svg?branch=main
+[tests-url]: https://github.com/th-neu/lairad/actions/workflows/python-tests.yml
+[stars-shield]: https://img.shields.io/github/actions/th-neu/lairad.svg?style=for-the-badge
+[stars-url]: https://github.com/th-neu/lairad/stargazers
+[issues-shield]: https://img.shields.io/github/issues/th-neu/lairad.svg?style=for-the-badge
+[issues-url]: https://github.com/th-neu/lairad/issues
+[license-shield]: https://img.shields.io/github/license/th-neu/lairad.svg?style=for-the-badge
+[license-url]: https://github.com/th-neu/lairad/blob/master/LICENSE.md
 [product-screenshot]: images/screenshot.png
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
@@ -322,3 +330,7 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 [Flask-url]: https://flask.palletsprojects.com/
 [Python.org]: https://img.shields.io/badge/Python-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Python-url]: https://www.python.org/
+
+[![Tests](https://github.com/abetlen/llama-cpp-python/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/abetlen/llama-cpp-python/actions/workflows/test.yaml)
+
+.github/workflows/python-tests.yml
