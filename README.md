@@ -1,5 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-
 <a name="readme-top"></a>
 
 [![Issues][issues-shield]][issues-url]
@@ -9,17 +7,14 @@
 
 
 
-<h3 align="center"> local artificial intelligence research and development (lairad)</h3>
+<h3 align="center">lairad - local artificial intelligence research and development</h3>
 
   <p align="center">
     <br />
-    <a href="https://github.com/th-neu/LIARAD"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/th-neu/lairad"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-  ·
-    <a href="https://github.com/th-neu/LIARAD/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/th-neu/LIARAD/issues">Request Feature</a>
+    *<a href="https://github.com/th-neu/lairad/issues">Report Bug</a>
+    *<a href="https://github.com/th-neu/lairad/issues">Request Feature</a>
   </p>
 </div>
 
@@ -40,7 +35,8 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation linux">Installation Linux</a></li>
-        <li><a href="#installation windows">Installation Windows</a></li>                		<li><a href="#enviroment">Enviroment</a></li>
+        <li><a href="#installation windows">Installation Windows</a></li>                      		<li><a href="#using docker">Using docker</a></li>
+        <li><a href="#environment">Environment File</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -57,7 +53,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-lairad is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local indepent resaerch to better understand the possibilities of local run/deployed large language models to enable the user.
+lairad is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local independent research to better understand the possibilities of local run/deployed large language models. LLM Models that work well are the 13B vicuna series. More research and data collection is needed here.
+<br>
+### The Project is in alpha status! 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -77,6 +75,7 @@ lairad is a local artificial intelligence research and development tool. Same in
 
 To get a local copy up and running follow these simple example steps.
 
+<!-- PREREQUISITES -->
 ### Prerequisites
 
 Working python installation and pip.
@@ -85,77 +84,86 @@ Working python installation and pip.
 
 	[https://pip.pypa.io/en/stable/installation/](https://pip.pypa.io/en/stable/installation/)
 
-
+<!-- INSTALLATION LINUX -->
 ### Installation Linux
 
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/th-neu/LIARAD.git
+   git clone https://github.com/th-neu/lairad.git
    ```
 2. Install python3 virtual environment (if not installed)
 	 ```sh
 	sudo apt-get install python3-venv
 	```
-4. setup the virtual environment
+3. setup the virtual environment
    ```sh
    cd lairad && python3 -m venv lairad
    ```
-5. activate the new virtual environment
+4. activate the new virtual environment
    ```sh
    source ~/venv/lairad/bin/activate
    ```
-6. Install pip packages
+5. Install pip packages
    ```sh
    pip -r requirements.txt
    ```
-7. Copy env.example to .env
+5. Copy env.example to .env
    ```js
    cp env.example .env
    ```
-8. edit the .env file
+7. edit the .env file
    ```js
    <your favorite editor here> .env
    ```
-
+8. run app.py
+   ```cmd
+   python3 app.py
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- INSTALLATION WINDOWS -->
 ### Installation Windows
 
 
 1. Clone the repo
    ```cmd
-   git clone https://github.com/th-neu/LIARAD.git
+   git clone https://github.com/th-neu/lairad.git
    ```
-2. Install python3 virtual environment (if not installed)
-	 ```cmd
-	sudo apt-get install python3-venv
-	```
-4. setup the virtual environment
+2. setup the virtual environment
    ```cmd
-   cd lairad && python3 -m venv lairad
+   cd lairad && python -m venv lairad
    ```
-5. activate the new virtual environment
+3. activate the new virtual environment
    ```cmd
-   source ~/venv/lairad/bin/activate
+   lairad\Scripts\activate.bat
    ```
-6. Install pip packages
+4. Install pip packages
    ```cmd
    pip -r requirements.txt
    ```
-7. Copy env.example to .env
+5. Copy env.example to .env
    ```cmd
-   cp env.example .env
+   copy env.example .env
    ```
-8. edit the .env file
+6. edit the .env file
    ```cmd
    <your favorite editor here> .env
    ```
+7. run app.py
+   ```cmd
+   python app.py
+   ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- USING DOCKER -->
+### Using docker
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Enviroment File Settings
-atleast one database (sqlite3 or mariadb at the moment)
+<!-- ENVIRONMENT FILE-->
+### Environment File Settings
+At least one database (sqlite3 or mariadb at the moment).
 Endpoint for llama-cpp-python
 The Endpoint for koboldcpp API does not work at the moment
 
@@ -170,10 +178,10 @@ DATABASE=example.db
 # mariadb configuration
 # DB_TYPE=mariadb
 # DB_USER=root
-# DB_PASSWORD=egal=88!
-# DB_HOST=192.168.1.6
+# DB_PASSWORD=
+# DB_HOST=
 # DB_PORT=3306
-# DB_NAME=LAIRAD
+# DB_NAME=lairad
 
 ## Endpoint for llama-cpp-python Python API
 # LLAMA_CCP_API_URL=http://localhost:8000/v1/completions
@@ -197,6 +205,10 @@ KOBOLDCPP_REP_PEN=1.1
 KOBOLDCPP_TOP_A=0
 KOBOLDCPP_STOP_SEQUENCE="}}}"
 ```
+<!-- OTHER CONTAINER-->
+### Other docker container
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -266,7 +278,8 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 * [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 * [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
-
+* [ghostwriter](https://ghostwriter.kde.org/de/)
+* [Auto-gpt](https://github.com/Significant-Gravitas/Auto-GPT)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
