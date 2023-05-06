@@ -1,0 +1,11 @@
+# 1. Base image
+FROM th-neu/docker-py-mariadbc-armhf:latest
+
+# 2. Copy files
+COPY . /src
+
+# 3. Install dependencies
+RUN pip install -r /src/requirements.txt
+
+# command to run on container start
+CMD [ "python", "./src/app.py" ] 

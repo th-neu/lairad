@@ -159,6 +159,24 @@ Working python installation and pip.
 <!-- USING DOCKER -->
 ### Using docker
 
+Use the installation steps with a virtual environment. Remove # app.py line 224,225 and add # at line 223.
+1. Build image with .env file
+   ```cmd
+   python app.py
+   ```
+
+Or use docker compose with the provided Dockerfile.
+
+For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at line 223.
+
+1. Pull the docker image
+   ```sh
+   docker pull ghcr.io/th-neu/docker-py-mariadbc-armhf:latest
+	```
+2. Build the image
+   ```sh
+	docker build your-name/image-name . -F Dockerfile.armhf
+	```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ENVIRONMENT FILE-->
@@ -225,8 +243,8 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 - [ ] Feature 1
 - [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Translations
+    - [ ] German
 
 See the [open issues](https://github.com/th-neu/LIARAD/issues) for a full list of proposed features (and known issues).
 
