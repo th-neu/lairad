@@ -86,7 +86,7 @@ Working python installation and pip.
 	[https://pip.pypa.io/en/stable/installation/](https://pip.pypa.io/en/stable/installation/)
 
 
-### Installation_Linux
+### Installation Linux
 
 
 1. Clone the repo
