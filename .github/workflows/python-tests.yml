@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get install libmariadb3 -y
         shell: bash
       - name: update ldconfig
-        run: sudo ldconfig
+        run: export LD_LIBRARY_PATH=/usr/lib/mariadb:$LD_LIBRARY_PATH
         shell: bash
       - name: Install dependencies
         run: |
