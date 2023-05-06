@@ -14,11 +14,11 @@ class User(UserMixin):
         self.is_admin = is_admin
         self.user_group_id = user_group_id
         self.theme = 'light'
-    
+
     # Define a static method to get a user based on their ID
     @staticmethod
     def get(user_id):
-        db = get_db(current_app)  # Get the database connection from the app's config
+        db = get_db(current_app)
         c = db.cursor()
         c.execute('SELECT * FROM users WHERE id=?', (user_id,))
         user = c.fetchone()
@@ -50,11 +50,11 @@ class UserGroup:
         self.id = id
         self.name = name
         self.created_by_admin = created_by_admin
-    
+
     # Define a static method to get a user group based on its ID
     @staticmethod
     def get(user_group_id):
-        db = get_db(current_app)  # Get the database connection from the app's config
+        db = get_db(current_app)
         c = db.cursor()
         c.execute('SELECT * FROM user_groups WHERE id=?', (user_group_id,))
         user_group = c.fetchone()
@@ -70,7 +70,9 @@ class UserGroup:
     def create(name, created_by_admin):
         conn = get_db()
         c = conn.cursor()
-        c.execute('INSERT INTO user_groups (name, created_by_admin) VALUES (?, ?)', (name, created_by_admin))
+        c.execute(
+            'INSERT INTO user_groups (name, created_by_admin) VALUES (?, ?)',
+            (name, created_by_admin))
         conn.commit()
         user_group_id = c.lastrowid
         conn.close()

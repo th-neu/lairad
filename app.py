@@ -40,25 +40,8 @@ class AnonymousUser(AnonymousUserMixin):
 login_manager.anonymous_user = AnonymousUser
 
 
-# Define a User class for the login manager to use
-class User:
-    def __init__(self, user_id, username, password, theme, is_admin=False):
-        self.id = user_id
-        self.username = username
-        self.password = password
-        self.theme = theme
-        self.is_active = True
-        self.is_authenticated = False
-        self.is_admin = is_admin
-
-    def get_id(self):
-        return str(self.id)
-
-    def set_authenticated(self, authenticated):
-        self.is_authenticated = authenticated
-
-
-# Define a user loader function for the login manager and load user from database using the user_id
+# Define a user loader function for the login manager
+# and load user from database using the user_id
 @login_manager.user_loader
 def load_user(user_id):
     conn = get_db(app)
@@ -87,14 +70,14 @@ def unauthorized():
 
 
 # Project listing route
-#@app.route('/project/<projects_id>', methods=['GET', 'POST'])
-#def project(projects_id):
+# @app.route('/project/<projects_id>', methods=['GET', 'POST'])
+# def project(projects_id):
 #   conn = get_db(app)
 #   c = conn.cursor()
 #   c.execute('SELECT * FROM projects WHERE id=?', (projects_id,))
 #   project_id = project[0]
 
-#Define a route for adding a project to the database
+# Define a route for adding a project to the database
 @app.route('/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project():
@@ -111,8 +94,10 @@ def add_project():
         # Save the project details to the database
         conn = get_db(app)
         c = conn.cursor()
-        c.execute('INSERT INTO projects (name, description, goals) VALUES (?, ?, ?)',
-                  (project_name, project_desc, project_goal))
+        c.execute(
+            'INSERT INTO projects (name, description, goals)'
+            'VALUES (?, ?, ?)',
+            (project_name, project_desc, project_goal))
         conn.commit()
         conn.close()
 
@@ -124,7 +109,7 @@ def add_project():
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html', pic=pic), 404
+    return render_template('404.html'), 404
 
 
 # Define a route for adding a user to the database
@@ -144,8 +129,10 @@ def add_user():
         # Save the user details to the database
         conn = get_db(app)
         c = conn.cursor()
-        c.execute('INSERT INTO users (username, password, is_admin) VALUES (?, ?, ?)',
-                  (username, password, is_admin))
+        c.execute(
+            'INSERT INTO users (username, password, is_admin)'
+            'VALUES (?, ?, ?)',
+            (username, password, is_admin))
         conn.commit()
         conn.close()
 
@@ -153,6 +140,7 @@ def add_user():
 
     # Render the add user form
     return render_template('add_user.html')
+
 
 # log out the user
 @app.route('/logout', methods=['POST'])
@@ -174,7 +162,7 @@ def login():
 
     if request.method == 'POST':
         # Connect to the database
-        db = get_db(app)
+        # db = get_db(app)
         # Get the username and password from the form
         username = request.form['username']
         password = request.form['password']
@@ -182,13 +170,18 @@ def login():
         # Check if the username and password are correct
         conn = get_db(app)
         c = conn.cursor()
-        c.execute('SELECT * FROM users WHERE username=? AND password=?', (username, password))
+        c.execute(
+            'SELECT * FROM users WHERE username=? AND password=?',
+            (username, password))
         user = c.fetchone()
         conn.close()
 
         if user:
             # If the username and password are correct, log the user in
-            user_obj = User(user[0], user[1], user[2], user[3], user[4])
+            user_obj = User(
+                user[0], user[1], user[2],
+                user[3], user[4], user[5]
+                )
             login_user(user_obj)
 
             # Redirect the user to the original page they were trying to access
