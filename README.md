@@ -54,11 +54,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-lairad is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local independent research to better understand the possibilities of local run/deployed large language models. LLM Models that work well are the 13B vicuna series. More research and data collection is needed here.
-<br>
-### The Project is in alpha status! 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+lairad is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local independent research to better understand the possibilities of local run/deployed large language models. LLM Models that work well are the 13B vicuna series. More research and data collection is needed here. When ever possible docker containers are used.<br>
+* MariaDB for User / Project / Prompt storage<br>
+* whoogle-search to have better search control<br>
+* gogs to store files and have a commit history
 
+## !!! This is an alpha !!! 
+Bug and issues are expected. Adding a new Project (Goal), getting basic search results back, storing that information is all that works for now. New commands will be add once everything about search / tasks works smoothly.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ### Built With
@@ -188,9 +192,9 @@ For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at li
 
 <!-- ENVIRONMENT FILE-->
 ### Environment File Settings
-At least one database (sqlite3 or mariadb at the moment).
-Endpoint for llama-cpp-python
-The Endpoint for koboldcpp API does not work at the moment.
+Settings for the database (sqlite3 or mariadb at the moment).
+</br>Settings for API Endpoint for llama-cpp-python.
+
 
 ```sh
 ## Secret App key
@@ -216,29 +220,21 @@ LLAMA_TEMPERATURE=0.8
 LLAMA_STOP=[}}}, ###]
 LLAMA_MAX_TOKEN=300
 LLAMA_ECHO=true
-
-## Endpoint for koboldcpp API
-KOBOLDCPP_API_URL=http://localhost:5001/api/v1/generate
-## KOBOLDCPP_API_SCHEMA
-KOBOLDCPP_FRMTRMSPCH=1
-KOBOLDCPP_SINGLELINE=1
-KOBOLDCPP_TEMPERATURE=0.2
-KOBOLDCPP_TOP_P=0.6
-KOBOLDCPP_MAX_LENGTH=500
-KOBOLDCPP_TOP_K=40
-KOBOLDCPP_REP_PEN=1.1
-KOBOLDCPP_TOP_A=0
-KOBOLDCPP_STOP_SEQUENCE="}}}"
 ```
+
 <!-- OTHER CONTAINER-->
-### Other docker container
+### Docker container
+
+[whoogle-search docker installation](https://github.com/benbusby/whoogle-search#manual-docker)<br>
+[MariaDB]()<br>
+[gogs]()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Navigate your web browser to localhost:5000 (replace with IP for docker address) and use admin/admin to login.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -302,9 +298,9 @@ Project Link: [https://github.com/th-neu/lairad](https://github.com/th-neu/laira
 
 * [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 * [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
-* [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [ghostwriter](https://ghostwriter.kde.org/de/)
 * [Auto-gpt](https://github.com/Significant-Gravitas/Auto-GPT)
+* [whoogle-search](https://github.com/benbusby/whoogle-search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
