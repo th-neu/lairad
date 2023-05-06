@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install mariadbc
-        run: sudo apt-get install libmariadb3 -y
+        run: sudo apt-get install libmariadb3 libmariadb-dev -y
         shell: bash
       - name: install pip mariadb
         run: pip install mariadb --global-option=build_ext --global-option="-L/usr/lib/x86_64-linux-gnu/ -lmariadb"
