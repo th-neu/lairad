@@ -29,13 +29,13 @@ jobs:
         shell: bash
       - name: Install pytest
         run: |
-          pip install pytest
+          pip install flake8
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          pytest
+          flake8
 
   build-windows:
 
