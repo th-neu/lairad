@@ -2,6 +2,7 @@
 
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+[![Tests][tests-url]][tests-shield]
 
 
 
