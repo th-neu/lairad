@@ -2,31 +2,21 @@
 
 <a name="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
 
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/the-neu/LIARAD">
-    <img src="static/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-<h3 align="center">Local AI Research and Development</h3>
+
+<h3 align="center"> local artificial intelligence research and development (lairad)</h3>
 
   <p align="center">
-    project_description
     <br />
     <a href="https://github.com/th-neu/LIARAD"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/th-neu/LIARAD">View Demo</a>
-    ·
+  ·
     <a href="https://github.com/th-neu/LIARAD/issues">Report Bug</a>
     ·
     <a href="https://github.com/th-neu/LIARAD/issues">Request Feature</a>
@@ -49,7 +39,8 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#installation linux">Installation Linux</a></li>
+        <li><a href="#installation windows">Installation Windows</a></li>                		<li><a href="#enviroment">Enviroment</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -66,9 +57,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-LAIRAD is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local indepent resaerch to better understand the possibilities of local run/deployed large language models to enable the user.
+lairad is a local artificial intelligence research and development tool. Same input, same output is a goal. Enabling local indepent resaerch to better understand the possibilities of local run/deployed large language models to enable the user.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -86,43 +75,134 @@ LAIRAD is a local artificial intelligence research and development tool. Same in
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Working python installation and pip.
 
-### Installation
+* pyhton pip install
+
+	[https://pip.pypa.io/en/stable/installation/](https://pip.pypa.io/en/stable/installation/)
+
+
+### Installation_Linux
 
 
 1. Clone the repo
    ```sh
    git clone https://github.com/th-neu/LIARAD.git
    ```
-2. Install NPM packages
+2. Install python3 virtual environment (if not installed)
+	 ```sh
+	sudo apt-get install python3-venv
+	```
+4. setup the virtual environment
    ```sh
-   npm install
+   cd lairad && python3 -m venv lairad
    ```
-4. Enter your API in `config.js`
+5. activate the new virtual environment
+   ```sh
+   source ~/venv/lairad/bin/activate
+   ```
+6. Install pip packages
+   ```sh
+   pip -r requirements.txt
+   ```
+7. Copy env.example to .env
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   cp env.example .env
+   ```
+8. edit the .env file
+   ```js
+   <your favorite editor here> .env
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Installation Windows
 
+
+1. Clone the repo
+   ```cmd
+   git clone https://github.com/th-neu/LIARAD.git
+   ```
+2. Install python3 virtual environment (if not installed)
+	 ```cmd
+	sudo apt-get install python3-venv
+	```
+4. setup the virtual environment
+   ```cmd
+   cd lairad && python3 -m venv lairad
+   ```
+5. activate the new virtual environment
+   ```cmd
+   source ~/venv/lairad/bin/activate
+   ```
+6. Install pip packages
+   ```cmd
+   pip -r requirements.txt
+   ```
+7. Copy env.example to .env
+   ```cmd
+   cp env.example .env
+   ```
+8. edit the .env file
+   ```cmd
+   <your favorite editor here> .env
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Enviroment File Settings
+atleast one database (sqlite3 or mariadb at the moment)
+Endpoint for llama-cpp-python
+The Endpoint for koboldcpp API does not work at the moment
+
+```sh
+## Secret App key
+secret_key=<Secret_Key>
+
+## Database connection
+# sqlite3 configuration
+DB_TYPE=sqlite
+DATABASE=example.db
+# mariadb configuration
+# DB_TYPE=mariadb
+# DB_USER=root
+# DB_PASSWORD=egal=88!
+# DB_HOST=192.168.1.6
+# DB_PORT=3306
+# DB_NAME=LAIRAD
+
+## Endpoint for llama-cpp-python Python API
+# LLAMA_CCP_API_URL=http://localhost:8000/v1/completions
+LLAMA_CCP_API_URL=http://localhost:8000/v1/completions
+## LLAMA_CCP_API_Schema
+LLAMA_TEMPERATURE=0.8
+LLAMA_STOP=[}}}, ###]
+LLAMA_MAX_TOKEN=300
+LLAMA_ECHO=true
+
+## Endpoint for koboldcpp API
+KOBOLDCPP_API_URL=http://localhost:5001/api/v1/generate
+## KOBOLDCPP_API_SCHEMA
+KOBOLDCPP_FRMTRMSPCH=1
+KOBOLDCPP_SINGLELINE=1
+KOBOLDCPP_TEMPERATURE=0.2
+KOBOLDCPP_TOP_P=0.6
+KOBOLDCPP_MAX_LENGTH=500
+KOBOLDCPP_TOP_K=40
+KOBOLDCPP_REP_PEN=1.1
+KOBOLDCPP_TOP_A=0
+KOBOLDCPP_STOP_SEQUENCE="}}}"
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -172,7 +252,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/LAIRAD) - email@email_client.com
+lairad@runbox.com
 
 Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARAD)
 
@@ -184,8 +264,9 @@ Project Link: [https://github.com/th-neu/LIARAD](https://github.com/th-neu/LIARA
 ## Acknowledgments
 
 * [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
-* []()
-* []()
+* [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
+* [koboldcpp](https://github.com/LostRuins/koboldcpp)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
