@@ -1,0 +1,84 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build-linux:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "true"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install mariadbc
+        run: sudo apt-get install libmariadb3 libmariadb-dev -y
+        shell: bash
+      - name: Install pytest
+        run: |
+          pip install flake8
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Test with pytest
+        run: |
+          flake8
+
+  build-windows:
+
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "true"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip pytest blinker click colorama Flask Flask-Login itsdangerous Jinja2 mariadb MarkupSafe packaging python-dotenv Werkzeug waitress
+          pip install . -v
+      - name: Test with pytest
+        run: |
+          pytest
+
+  build-macos:
+
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "true"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip pytest blinker click colorama Flask Flask-Login itsdangerous Jinja2 mariadb MarkupSafe packaging python-dotenv Werkzeug waitress
+          pip install . -v
+      - name: Test with pytest
+        run: |
+          pytest
