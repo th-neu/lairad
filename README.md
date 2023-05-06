@@ -312,26 +312,22 @@ Project Link: [https://github.com/th-neu/lairad](https://github.com/th-neu/laira
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/th-neu/lairad.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/th-neu/lairad.svg?style=plastic
 [contributors-url]: https://github.com/th-neu/lairad/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/th-neu/lairad.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/th-neu/lairad.svg?style=plastic
 [forks-url]: https://github.com/th-neu/lairad/network/members
 [tests-shield]: https://github.com/th-neu/lairad/actions/workflows/python-tests.yml/badge.svg?branch=main
 [tests-url]: https://github.com/th-neu/lairad/actions/workflows/python-tests.yml
-[stars-shield]: https://img.shields.io/github/actions/th-neu/lairad.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/actions/th-neu/lairad.svg?style=plastic
 [stars-url]: https://github.com/th-neu/lairad/stargazers
-[issues-shield]: https://img.shields.io/github/issues/th-neu/lairad.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/th-neu/lairad.svg?style=plastic
 [issues-url]: https://github.com/th-neu/lairad/issues
-[license-shield]: https://img.shields.io/github/license/th-neu/lairad.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/th-neu/lairad.svg?style=plastic
 [license-url]: https://github.com/th-neu/lairad/blob/master/LICENSE.md
 [product-screenshot]: images/screenshot.png
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=plastic&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[Flask.com]: https://img.shields.io/badge/Flask-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Flask.com]: https://img.shields.io/badge/Flask-563D7C?style=plastic&logo=bootstrap&logoColor=white
 [Flask-url]: https://flask.palletsprojects.com/
-[Python.org]: https://img.shields.io/badge/Python-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Python.org]: https://img.shields.io/badge/Python-563D7C?style=plastic&logo=bootstrap&logoColor=white
 [Python-url]: https://www.python.org/
-
-[![Tests](https://github.com/abetlen/llama-cpp-python/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/abetlen/llama-cpp-python/actions/workflows/test.yaml)
-
-.github/workflows/python-tests.yml
