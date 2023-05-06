@@ -56,7 +56,7 @@ jobs:
       - name: Install mariadb
         run: |
           choco --yes install mariadb.install
-        shell: cmd
+        shell: pwsh
       - name: Install pytest
         run: |
           pip install flake8
