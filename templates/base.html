@@ -10,7 +10,7 @@
   
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div class="container-fluid"> 
-        <a class="navbar-brand" href="{{ url_for('home') }}">LAIRAD</a>
+        <a class="navbar-brand" href="{{ url_for('home') }}">lairad</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,6 +32,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			    {% if current_user.is_admin %}
                 <a class="dropdown-item" href="{{ url_for('add_user') }}">Add User</a>
+				<a class="dropdown-item" href="{{ url_for('add_project') }}">Add Project</a>
                 {% endif %}
                 <a class="dropdown-item" href="{{ url_for('config.config') }}">Config</a>
                 <form method="POST" action="{{ url_for('logout') }}" id="logout-form">
