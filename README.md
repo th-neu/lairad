@@ -247,7 +247,7 @@ Navigate your web browser to localhost:5000 (replace with IP for docker / none l
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] 
+- [ ] Rewrite Code with proper python structure
 - [ ] Feature 2
 - [ ] Translations
     - [ ] German
