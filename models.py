@@ -1,12 +1,16 @@
+"""
+defines various models (user,usergroup)
+"""
 # Import necessary modules
 from flask_login import UserMixin
 from flask import current_app
 from db import get_db
 
 
-# Define a User class that inherits from the UserMixin class
 class User(UserMixin):
+    """Define a User class that inherits from the UserMixin class"""
     def __init__(self, id, username, email, password, is_admin, user_group_id):
+        """init user class"""
         self.id = id
         self.username = username
         self.email = email
@@ -15,9 +19,9 @@ class User(UserMixin):
         self.user_group_id = user_group_id
         self.theme = 'light'
 
-    # Define a static method to get a user based on their ID
     @staticmethod
     def get(user_id):
+        """Define a static method to get a user based on their ID"""
         db = get_db(current_app)
         c = db.cursor()
         c.execute('SELECT * FROM users WHERE id=?', (user_id,))
@@ -29,9 +33,9 @@ class User(UserMixin):
         else:
             return None
 
-    # Define a static method to find a user based on their username
     @staticmethod
     def find_by_username(username):
+        """Define a static method to find a user based on their username"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE username=?', (username,))
@@ -40,20 +44,20 @@ class User(UserMixin):
 
         if user:
             return User(user[0], user[1], user[2], user[3], user[4], user[5])
-        else:
-            return None
+        return None
 
 
-# Define a UserGroup class
 class UserGroup:
+    """Define a UserGroup class"""
     def __init__(self, id, name, created_by_admin):
+        """init function"""
         self.id = id
         self.name = name
         self.created_by_admin = created_by_admin
 
-    # Define a static method to get a user group based on its ID
     @staticmethod
     def get(user_group_id):
+        """Define a static method to get a user group based on its ID"""
         db = get_db(current_app)
         c = db.cursor()
         c.execute('SELECT * FROM user_groups WHERE id=?', (user_group_id,))
@@ -62,12 +66,11 @@ class UserGroup:
 
         if user_group:
             return UserGroup(user_group[0], user_group[1], user_group[2])
-        else:
-            return None
+        return None
 
-    # Define a static method to create a new user group
     @staticmethod
     def create(name, created_by_admin):
+        """Define a static method to create a new user group"""
         conn = get_db()
         c = conn.cursor()
         c.execute(
@@ -79,9 +82,9 @@ class UserGroup:
 
         return UserGroup(user_group_id, name, created_by_admin)
 
-    # Define a static method to find a user group based on its name
     @staticmethod
     def find_by_name(name):
+        """Define a static method to find a user group based on its name"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM user_groups WHERE name=?', (name,))
@@ -90,5 +93,4 @@ class UserGroup:
 
         if user_group:
             return UserGroup(user_group[0], user_group[1], user_group[2])
-        else:
-            return None
+        return None
