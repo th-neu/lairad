@@ -35,9 +35,9 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation linux">Installation Linux</a></li>
-        <li><a href="#installation windows">Installation Windows</a></li>                      		<li><a href="#using docker">Using docker</a></li>
-        <li><a href="#environment">Environment File</a></li>
+        <li><a href="#installation-linux">Installation Linux</a></li>
+        <li><a href="#installation-windows">Installation Windows</a></li>                      		<li><a href="#using-docker">Using docker</a></li>
+        <li><a href="#environment-file">Environment File</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -226,15 +226,15 @@ LLAMA_ECHO=true
 ### Docker container
 
 [whoogle-search docker installation](https://github.com/benbusby/whoogle-search#manual-docker)<br>
-[MariaDB]()<br>
-[gogs]()
+[MariaDB](https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/)<br>
+[gogs](https://github.com/gogs/gogs)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Navigate your web browser to localhost:5000 (replace with IP for docker address) and use admin/admin to login.
+Navigate your web browser to localhost:5000 (replace with IP for docker / none localhost installation) and use admin/admin to login.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
