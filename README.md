@@ -223,6 +223,13 @@ LLAMA_MAX_TOKEN=300
 LLAMA_ECHO=true
 ```
 
+The Secret Key is not to be shared."It should be a long random string of bytes, although unicode is accepted too." One can use python (windows example):
+```cmd
+python -c "import os; print(os.urandom(16))"
+```
+or a Password manager to generate a long random string.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- OTHER CONTAINER-->
 ### Docker container
 
@@ -248,7 +255,7 @@ Navigate your web browser to localhost:5000 (replace with IP for docker / none l
 ## Roadmap
 
 - [ ] Rewrite Code with proper python structure
-- [ ] Feature 2
+- [ ] Working task management (call llm with goals and act on it [search, write file])
 - [ ] Translations
     - [ ] German
 
