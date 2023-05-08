@@ -3,6 +3,7 @@ main lairad app, provides login/lougout and main routes
 """
 
 # Import the required packages
+from logging.handlers import RotatingFileHandler
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from flask_login import login_required, LoginManager, current_user, login_user
@@ -14,6 +15,26 @@ from models import User
 from db import get_db
 from config import config_bp
 from routes.project import project_bp
+from logging.config import dictConfig
+from time import strftime
+import logging
+import traceback
+
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -47,6 +68,21 @@ class AnonymousUser(AnonymousUserMixin):
 # Set the anonymous user for the login manager
 login_manager.anonymous_user = AnonymousUser
 
+@app.after_request
+def after_request(response):
+    """ Logging after every request. """
+    # This avoids the duplication of registry in the log,
+    # since that 500 is already logged via @app.errorhandler.
+    if response.status_code != 500:
+        ts = strftime('[%Y-%b-%d %H:%M]')
+        logger.error('%s %s %s %s %s %s',
+                      ts,
+                      request.remote_addr,
+                      request.method,
+                      request.scheme,
+                      request.full_path,
+                      response.status)
+    return response
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -161,6 +197,7 @@ def login():
                 user[3], user[4], user[5]
                 )
             login_user(user_obj)
+            app.logger.info('%s logged in successfully', user_obj.username)
 
             # Redirect the user to the original page they were trying to access
             next_page = request.args.get('next')
@@ -197,7 +234,25 @@ def home():
     return render_template('index.html', theme=current_user.theme)
 
 
+@app.errorhandler(Exception)
+def exceptions(e):
+    """ Logging after every Exception. """
+    ts = strftime('[%Y-%b-%d %H:%M]')
+    tb = traceback.format_exc()
+    logger.error('%s %s %s %s %s 5xx INTERNAL SERVER ERROR\n%s',
+                  ts,
+                  request.remote_addr,
+                  request.method,
+                  request.scheme,
+                  request.full_path,
+                  tb)
+    return "Internal Server Error", 500
+
 if __name__ == '__main__':
-    app.run(debug=True)
-    # from waitress import serve
-    # serve(app, host="0.0.0.0", port=5000)
+    # app.run(debug=True)
+    handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=3)
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.ERROR)
+    logger.addHandler(handler)    
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=5000)
