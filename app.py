@@ -13,7 +13,7 @@ from werkzeug.urls import url_parse
 from models import User
 from db import get_db
 from config import config_bp
-from routes.add_project import add_project_bp
+from routes.project import project_bp
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -32,7 +32,7 @@ login_manager.init_app(app)
 app.register_blueprint(config_bp)
 
 # Register the blueprint from the add_project module
-app.register_blueprint(add_project_bp)
+app.register_blueprint(project_bp)
 
 
 class AnonymousUser(AnonymousUserMixin):
