@@ -23,7 +23,7 @@ import traceback
 dictConfig({
     'version': 1,
     'formatters': {'default': {
-        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+        'format': '',
     }},
     'handlers': {'wsgi': {
         'class': 'logging.StreamHandler',
@@ -74,7 +74,7 @@ def after_request(response):
     # This avoids the duplication of registry in the log,
     # since that 500 is already logged via @app.errorhandler.
     if response.status_code != 500:
-        ts = strftime('[%Y-%b-%d %H:%M]')
+        ts = strftime('[%H:%M:%S %d-%b-%Y]')
         logger.error('%s %s %s %s %s %s',
                       ts,
                       request.remote_addr,
