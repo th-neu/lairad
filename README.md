@@ -37,9 +37,10 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation-linux">Installation Linux</a></li>
         <li><a href="#installation-windows">Installation Windows</a></li>                      		<li><a href="#using-docker">Using docker</a></li>
-        <li><a href="#environment-file">Environment File</a></li>
+        <li><a href="#environment-file-settings">Environment File settings</a></li>
       </ul>
     </li>
+    <li><a href="#docker-container">Docker container</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -225,9 +226,11 @@ LLAMA_ECHO=true
 <!-- OTHER CONTAINER-->
 ### Docker container
 
+This is my choice of container. You can build your own images or install the software directly onto a host system. Docker is recommenced.
+
 [whoogle-search docker installation](https://github.com/benbusby/whoogle-search#manual-docker)<br>
-[MariaDB](https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/)<br>
-[gogs](https://github.com/gogs/gogs)
+[MariaDB knowledge base](https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/)<br>
+[gogs docker installation](https://github.com/gogs/gogs#tutorials)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -244,7 +247,7 @@ Navigate your web browser to localhost:5000 (replace with IP for docker / none l
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
+- [ ] 
 - [ ] Feature 2
 - [ ] Translations
     - [ ] German
