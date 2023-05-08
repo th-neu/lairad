@@ -114,15 +114,15 @@ Working python installation and pip.
    pip -r requirements.txt
    ```
 5. Copy env.example to .env
-   ```js
+   ```sh
    cp env.example .env
    ```
 7. edit the .env file
-   ```js
+   ```sh
    <your favorite editor here> .env
    ```
 8. run app.py
-   ```cmd
+   ```sh
    python3 app.py
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -166,26 +166,26 @@ Working python installation and pip.
 
 Use the installation steps with a virtual environment. Remove # app.py line 224,225 and add # at line 223. Using --rm to remove the container for testing.
 1. Build the image
-   ```cmd
+   ```bash
 	docker build -t your-name/image-name .
    ```
 2. Run the container
-   ```sh
+   ```bash
 	docker run --rm -p 5000:5000 your-name/image-name
 	```
 
 For armv7 use the Dockerfile.armv7. Remove # app.py line 224,225 and add # at line 223. Using --rm to remove the container for testing.
 
 1. Pull the docker image
-   ```sh
+   ```bash
    docker pull ghcr.io/th-neu/docker-py-mariadbc-armhf:latest
 	```
 2. Build the image
-   ```sh
+   ```bash
 	docker build -t your-name/image-name -f Dockerfile.armv7 .
 	```
 3. Run the container
-   ```sh
+   ```bash
 	docker run --rm -p 5000:5000 your-name/image-name
 	```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -196,7 +196,7 @@ Settings for the database (sqlite3 or mariadb at the moment).
 </br>Settings for API Endpoint for llama-cpp-python.
 
 
-```sh
+```env
 ## Secret App key
 secret_key=<Secret_Key>
 
