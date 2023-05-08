@@ -30,8 +30,7 @@ class User(UserMixin):
 
         if user:
             return User(user[0], user[1], user[2], user[3], user[4], user[5])
-        else:
-            return None
+        return None
 
     @staticmethod
     def find_by_username(username):

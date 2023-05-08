@@ -85,9 +85,9 @@ def unauthorized():
 
 
 @app.errorhandler(404)
-def not_found_error(error):
+def not_found_error(e):
     """404 error handler"""
-    return render_template('404.html')
+    return render_template('404.html'), 404
 
 
 @app.route('/add_user', methods=['GET', 'POST'])
