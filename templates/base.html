@@ -32,7 +32,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			    {% if current_user.is_admin %}
                 <a class="dropdown-item" href="{{ url_for('add_user') }}">Add User</a>
-				<a class="dropdown-item" href="{{ url_for('add_project.add_project') }}">Add Project</a>
+				<a class="dropdown-item" href="{{ url_for('project.add_project') }}">Add Project</a>
                 {% endif %}
                 <a class="dropdown-item" href="{{ url_for('config.config') }}">Config</a>
                 <form method="POST" action="{{ url_for('logout') }}" id="logout-form">

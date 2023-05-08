@@ -4,10 +4,10 @@ add projects route
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 
-add_project_bp = Blueprint('add_project', __name__, url_prefix='/')
+project_bp = Blueprint('project', __name__, url_prefix='/')
 
 
-@add_project_bp.route('/add_project', methods=['GET', 'POST'])
+@project_bp.route('/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project():
     """Define a route for adding a project to the database"""
