@@ -1,3 +1,7 @@
+"""
+main lairad app, provides login/lougout and main routes
+"""
+
 # Import the required packages
 import os
 from flask import Flask, render_template, request, url_for, redirect
@@ -9,6 +13,7 @@ from werkzeug.urls import url_parse
 from models import User
 from db import get_db
 from config import config_bp
+from routes.add_project import add_project_bp
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -26,9 +31,12 @@ login_manager.init_app(app)
 # Register the blueprint from the config module
 app.register_blueprint(config_bp)
 
+# Register the blueprint from the add_project module
+app.register_blueprint(add_project_bp)
 
-# Define an anonymous user class for the login manager to use
+
 class AnonymousUser(AnonymousUserMixin):
+    """Define an anonymous user class for the login manager to use"""
     id = None
     is_active = False
     is_authenticated = False
@@ -40,10 +48,9 @@ class AnonymousUser(AnonymousUserMixin):
 login_manager.anonymous_user = AnonymousUser
 
 
-# Define a user loader function for the login manager
-# and load user from database using the user_id
 @login_manager.user_loader
 def load_user(user_id):
+    """login manager / loads user from database using the user_id"""
     conn = get_db(app)
     c = conn.cursor()
     c.execute('SELECT * FROM users WHERE id=?', (user_id,))
@@ -62,10 +69,9 @@ def load_user(user_id):
     return user_obj
 
 
-# Define an unauthorized handler function for the login manager
 @login_manager.unauthorized_handler
 def unauthorized():
-    # Redirect the user to the login page with a message
+    """Define an unauthorized handler function for the login manager"""
     return redirect(url_for('login', next=request.endpoint))
 
 
@@ -77,46 +83,17 @@ def unauthorized():
 #   c.execute('SELECT * FROM projects WHERE id=?', (projects_id,))
 #   project_id = project[0]
 
-# Define a route for adding a project to the database
-@app.route('/add_project', methods=['GET', 'POST'])
-@login_required
-def add_project():
-    # check if current user is admin
-    if not current_user.is_admin:
-        return redirect(url_for('home'))
-
-    if request.method == 'POST':
-        # Get the project details from the form
-        project_name = request.form['project_name']
-        project_desc = request.form['project_desc']
-        project_goal = request.form['project_goal']
-
-        # Save the project details to the database
-        conn = get_db(app)
-        c = conn.cursor()
-        c.execute(
-            'INSERT INTO projects (name, description, goals)'
-            'VALUES (?, ?, ?)',
-            (project_name, project_desc, project_goal))
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for('home'))
-
-    # Render the add user form
-    return render_template('add_project.html')
-
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html'), 404
+    """404 error handler"""
+    return render_template('404.html')
 
 
-# Define a route for adding a user to the database
 @app.route('/add_user', methods=['GET', 'POST'])
 @login_required
 def add_user():
-    # check if current user is admin
+    """Define a route for adding a user to the database"""
     if not current_user.is_admin:
         return redirect(url_for('home'))
 
@@ -142,10 +119,10 @@ def add_user():
     return render_template('add_user.html')
 
 
-# log out the user
 @app.route('/logout', methods=['POST'])
 @login_required
 def logout():
+    """defines a logout route"""
     # Log the user out
     logout_user()
 
@@ -155,6 +132,7 @@ def logout():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    """main route"""
     # Check if the user is already authenticated
     if current_user.is_authenticated:
         # If so, redirect them to the home page
@@ -189,18 +167,18 @@ def login():
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('home')
             return redirect(next_page)
-        else:
             # If the username and password are incorrect, show an error message
-            error = 'Invalid username or password. Please try again.'
-            return render_template('login.html', error=error)
-    else:
-        # If the request method is GET, show the login page
-        return render_template('login.html')
+        error = 'Invalid username or password. Please try again.'
+        return render_template('login.html', error=error)
+    # else:
+    # If the request method is GET, show the login page
+    return render_template('login.html')
 
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    """homme route"""
     db = get_db(app)
     if request.method == 'POST':
         # Retrieve the user's selected theme from the form

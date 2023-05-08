@@ -1,3 +1,6 @@
+"""
+database module
+"""
 # Import necessary modules
 import os
 import sqlite3
@@ -9,8 +12,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# Define function to get a database connection
 def get_db(app):
+    """# Define function to get a database connection"""
     # Try to get the database connection from Flask's application context
     db = getattr(g, '_database', None)
     if db is None:
@@ -48,8 +51,8 @@ def get_db(app):
     return db
 
 
-# Define function to close the database connection
-def close_db(e=None):
+def close_db():
+    """Define function to close the database connection"""
     # Get the database connection from Flask's application context
     db = g.pop('_database', None)
     # If a database connection exists, close it
