@@ -12,7 +12,7 @@ from werkzeug.urls import url_parse
 # import User model and database connection from other files
 from models import User
 from db import get_db
-from config import config_bp
+from theme import theme_bp
 from routes.project import project_bp
 
 # Create a Flask application instance
@@ -29,8 +29,8 @@ app.config['LOGIN_DISABLED'] = False  # set to True if user is not logged in
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# Register the blueprint from the config module
-app.register_blueprint(config_bp)
+# Register the blueprint from the theme module
+app.register_blueprint(theme_bp)
 
 # Register the blueprint from the add_project module
 
