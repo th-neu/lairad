@@ -4,7 +4,7 @@ main lairad app, provides login/lougout and main routes
 
 # Import the required packages
 import os
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, current_app
 from flask_login import login_required, LoginManager, current_user, login_user
 from flask_login import UserMixin, logout_user
 from flask_login.mixins import AnonymousUserMixin
@@ -17,6 +17,7 @@ from routes.project import project_bp
 
 # Create a Flask application instance
 app = Flask(__name__)
+app.register_blueprint(project_bp, app=app)
 
 # Set the Flask secret key from an environment variable
 app.secret_key = os.getenv('SECRET_KEY')
@@ -32,7 +33,6 @@ login_manager.init_app(app)
 app.register_blueprint(config_bp)
 
 # Register the blueprint from the add_project module
-app.register_blueprint(project_bp)
 
 
 class AnonymousUser(AnonymousUserMixin):
