@@ -3,9 +3,14 @@ main lairad app, provides login/lougout and main routes
 """
 
 # Import the required packages
-from logging.handlers import RotatingFileHandler
 import os
-from flask import Flask, render_template, request, url_for, redirect, current_app
+import logging
+import traceback
+from time import strftime
+from logging.handlers import RotatingFileHandler
+from logging.config import dictConfig
+from flask import Flask, render_template, request, url_for, redirect
+from flask import current_app as app
 from flask_login import login_required, LoginManager, current_user, login_user
 from flask_login import UserMixin, logout_user
 from flask_login.mixins import AnonymousUserMixin
@@ -15,10 +20,7 @@ from models import User
 from db import get_db
 from theme import theme_bp
 from routes.project import project_bp
-from logging.config import dictConfig
-from time import strftime
-import logging
-import traceback
+
 
 dictConfig({
     'version': 1,
@@ -253,6 +255,6 @@ if __name__ == '__main__':
     handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=3)
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.ERROR)
-    logger.addHandler(handler)    
+    logger.addHandler(handler)
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)

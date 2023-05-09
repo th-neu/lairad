@@ -2,7 +2,8 @@
 add projects route
 """
 
-from flask import Blueprint, render_template, request, current_app, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
+# from flask import current_app as app
 from flask_login import login_required, current_user
 from db import get_db
 

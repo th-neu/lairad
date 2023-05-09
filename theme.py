@@ -2,7 +2,7 @@
 module to change the theme *not working*
 """
 # Import necessary modules
-from flask import Blueprint, render_template, request, current_app
+from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 # from models import User
 from db import get_db
