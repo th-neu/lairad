@@ -5,14 +5,14 @@ database module
 import os
 import sqlite3
 import mariadb
-from flask import g
+from flask import g, current_app
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 
-def get_db(app):
+def get_db(app=None):
     """# Define function to get a database connection"""
     # Try to get the database connection from Flask's application context
     db = getattr(g, '_database', None)
@@ -51,7 +51,7 @@ def get_db(app):
     return db
 
 
-def close_db():
+def close_db(app):
     """Define function to close the database connection"""
     # Get the database connection from Flask's application context
     db = g.pop('_database', None)

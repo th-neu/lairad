@@ -1,15 +1,17 @@
 """
 add projects route
 """
-from flask import Blueprint, render_template, request
+
+from flask import Blueprint, render_template, request, current_app, redirect, url_for
 from flask_login import login_required, current_user
+from db import get_db
 
 project_bp = Blueprint('project', __name__, url_prefix='/')
 
 
 @project_bp.route('/add_project', methods=['GET', 'POST'])
 @login_required
-def add_project():
+def add_project(app=None):
     """Define a route for adding a project to the database"""
     # check if current user is admin
     if not current_user.is_admin:
