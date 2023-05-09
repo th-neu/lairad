@@ -55,8 +55,6 @@ login_manager.init_app(app)
 # Register the blueprint from the theme module
 app.register_blueprint(theme_bp)
 
-# Register the blueprint from the add_project module
-
 
 class AnonymousUser(AnonymousUserMixin):
     """Define an anonymous user class for the login manager to use"""
