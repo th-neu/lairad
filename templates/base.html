@@ -34,7 +34,7 @@
                 <a class="dropdown-item" href="{{ url_for('add_user') }}">Add User</a>
 				<a class="dropdown-item" href="{{ url_for('project.add_project') }}">Add Project</a>
                 {% endif %}
-                <a class="dropdown-item" href="{{ url_for('config.config') }}">Config</a>
+                <a class="dropdown-item" href="{{ url_for('theme.theme') }}">Theme</a>
                 <form method="POST" action="{{ url_for('logout') }}" id="logout-form">
                   <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit()">Logout</a>
                 </form>
