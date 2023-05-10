@@ -70,6 +70,7 @@ class AnonymousUser(AnonymousUserMixin):
 # Set the anonymous user for the login manager
 login_manager.anonymous_user = AnonymousUser
 
+
 @app.after_request
 def after_request(response):
     """ Logging after every request. """
@@ -77,14 +78,17 @@ def after_request(response):
     # since that 500 is already logged via @app.errorhandler.
     if response.status_code != 500:
         ts = strftime('[%H:%M:%S %d-%b-%Y]')
-        logger.error('%s %s %s %s %s %s',
-                      ts,
-                      request.remote_addr,
-                      request.method,
-                      request.scheme,
-                      request.full_path,
-                      response.status)
+        logger.error(
+            '%s %s %s %s %s %s',
+            ts,
+            request.remote_addr,
+            request.method,
+            request.scheme,
+            request.full_path,
+            response.status
+            )
     return response
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -113,48 +117,10 @@ def unauthorized():
     return redirect(url_for('login', next=request.endpoint))
 
 
-# Project listing route
-# @app.route('/project/<projects_id>', methods=['GET', 'POST'])
-# def project(projects_id):
-#   conn = get_db(app)
-#   c = conn.cursor()
-#   c.execute('SELECT * FROM projects WHERE id=?', (projects_id,))
-#   project_id = project[0]
-
-
 @app.errorhandler(404)
 def not_found_error(e):
     """404 error handler"""
     return render_template('404.html'), 404
-
-
-#@app.route('/add_user', methods=['GET', 'POST'])
-#@login_required
-#def add_user():
-#    """Define a route for adding a user to the database"""
-#    if not current_user.is_admin:
-#        return redirect(url_for('home'))
-#
-#    if request.method == 'POST':
-#        # Get the user details from the form
-#        username = request.form['username']
-#        password = request.form['password']
-#        is_admin = request.form.get('is_admin') == 'True'
-#
-#        # Save the user details to the database
-#        conn = get_db(app)
-#        c = conn.cursor()
-#        c.execute(
-#            'INSERT INTO users (username, password, is_admin)'
-#            'VALUES (?, ?, ?)',
-#            (username, password, is_admin))
-#        conn.commit()
-#        conn.close()
-#
-#        return redirect(url_for('home'))
-#
-#    # Render the add user form
-#    return render_template('add_user.html')
 
 
 @app.route('/logout', methods=['POST'])
@@ -241,14 +207,17 @@ def exceptions(e):
     """ Logging after every Exception. """
     ts = strftime('[%Y-%b-%d %H:%M]')
     tb = traceback.format_exc()
-    logger.error('%s %s %s %s %s 5xx INTERNAL SERVER ERROR\n%s',
-                  ts,
-                  request.remote_addr,
-                  request.method,
-                  request.scheme,
-                  request.full_path,
-                  tb)
+    logger.error(
+            '%s %s %s %s %s 5xx INTERNAL SERVER ERROR\n%s',
+            ts,
+            request.remote_addr,
+            request.method,
+            request.scheme,
+            request.full_path,
+            tb
+            )
     return "Internal Server Error", 500
+
 
 if __name__ == '__main__':
     # app.run(debug=True)
