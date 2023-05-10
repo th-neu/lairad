@@ -20,6 +20,7 @@ from models import User
 from db import get_db
 from theme import theme_bp
 from routes.project import project_bp
+from routes.user import user_bp
 
 
 dictConfig({
@@ -54,6 +55,7 @@ login_manager.init_app(app)
 
 # Register the blueprint from the theme module
 app.register_blueprint(theme_bp)
+app.register_blueprint(user_bp)
 
 
 class AnonymousUser(AnonymousUserMixin):
@@ -126,33 +128,33 @@ def not_found_error(e):
     return render_template('404.html'), 404
 
 
-@app.route('/add_user', methods=['GET', 'POST'])
-@login_required
-def add_user():
-    """Define a route for adding a user to the database"""
-    if not current_user.is_admin:
-        return redirect(url_for('home'))
-
-    if request.method == 'POST':
-        # Get the user details from the form
-        username = request.form['username']
-        password = request.form['password']
-        is_admin = request.form.get('is_admin') == 'True'
-
-        # Save the user details to the database
-        conn = get_db(app)
-        c = conn.cursor()
-        c.execute(
-            'INSERT INTO users (username, password, is_admin)'
-            'VALUES (?, ?, ?)',
-            (username, password, is_admin))
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for('home'))
-
-    # Render the add user form
-    return render_template('add_user.html')
+#@app.route('/add_user', methods=['GET', 'POST'])
+#@login_required
+#def add_user():
+#    """Define a route for adding a user to the database"""
+#    if not current_user.is_admin:
+#        return redirect(url_for('home'))
+#
+#    if request.method == 'POST':
+#        # Get the user details from the form
+#        username = request.form['username']
+#        password = request.form['password']
+#        is_admin = request.form.get('is_admin') == 'True'
+#
+#        # Save the user details to the database
+#        conn = get_db(app)
+#        c = conn.cursor()
+#        c.execute(
+#            'INSERT INTO users (username, password, is_admin)'
+#            'VALUES (?, ?, ?)',
+#            (username, password, is_admin))
+#        conn.commit()
+#        conn.close()
+#
+#        return redirect(url_for('home'))
+#
+#    # Render the add user form
+#    return render_template('add_user.html')
 
 
 @app.route('/logout', methods=['POST'])
