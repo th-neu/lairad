@@ -112,7 +112,7 @@ Working python installation and pip.
    ```
 5. Install pip packages
    ```sh
-   pip -r requirements.txt
+   pip install -r requirements.txt
    ```
 5. Copy env.example to .env
    ```sh
@@ -146,7 +146,7 @@ Working python installation and pip.
    ```
 4. Install pip packages
    ```cmd
-   pip -r requirements.txt
+   pip install -r requirements.txt
    ```
 5. Copy env.example to .env
    ```cmd
