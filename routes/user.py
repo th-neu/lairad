@@ -1,5 +1,7 @@
+"""
+module for user adding
+"""
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
-# from flask import current_app as app
 from flask_login import login_required, current_user
 from db import get_db
 
