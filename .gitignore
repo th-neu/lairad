@@ -164,3 +164,7 @@ cython_debug/
 
 # Visual Studio .vs
 .vs/
+
+Prompt Work
+llmapi/response.txt
+llmapi/prompt_testing_ip_moved.txt
