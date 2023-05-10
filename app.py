@@ -250,7 +250,7 @@ def exceptions(e):
 
 if __name__ == '__main__':
     # app.run(debug=True)
-    handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=3)
+    handler = RotatingFileHandler('logs/app.log', maxBytes=10000, backupCount=3)
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.ERROR)
     logger.addHandler(handler)
