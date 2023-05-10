@@ -1,8 +1,12 @@
+"""
+first implementation of a api call to llama-cpp-python
+"""
+import os
+import re
 import json
 import requests
 from dotenv import load_dotenv
-import os
-import re
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -39,7 +43,7 @@ if response.status_code == requests.codes.ok:
     response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
     print (response_content_string)
     with open('response.txt', 'w') as f:
-            f.write(response_content_string)
+        f.write(response_content_string)
 
     match = re.search(r'{"thoughts".*?"}}}', response_content_string)
     if match:
