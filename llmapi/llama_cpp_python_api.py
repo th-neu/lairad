@@ -7,9 +7,10 @@ import json
 import requests
 from dotenv import load_dotenv
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 
 # Load environment variables from .env file
-load_dotenv()
+load_dotenv(dotenv_path)
 
 # URL of the API endpoint
 api_url = os.getenv("LLAMA_CCP_API_URL")
