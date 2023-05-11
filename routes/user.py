@@ -1,9 +1,11 @@
 """
-module for user adding
+module for adding a user
 """
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
 from flask_login import login_required, current_user
 from db import get_db
+from models import User
+
 
 
 user_bp = Blueprint('user', __name__, url_prefix='/')
@@ -11,7 +13,7 @@ user_bp = Blueprint('user', __name__, url_prefix='/')
 
 @user_bp.route('/add_user', methods=['GET', 'POST'])
 @login_required
-def add_user():
+def add_user(app=None):
     """Define a route for adding a user to the database"""
     if not current_user.is_admin:
         return redirect(url_for('home'))
@@ -36,3 +38,12 @@ def add_user():
 
     # Render the add user form
     return render_template('add_user.html')
+
+
+@user_bp.route('/list_users')
+@login_required
+def list_users():
+    """List all users"""
+    user_objs = []
+    users = User.get_all_users(user_objs)
+    return render_template('list_users.html', users=users)

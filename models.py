@@ -45,6 +45,25 @@ class User(UserMixin):
             return User(user[0], user[1], user[2], user[3], user[4], user[5])
         return None
 
+    @staticmethod
+    def get_all_users(user_objs):
+        """Retrieve all users from the database"""
+        conn = get_db()
+        c = conn.cursor()
+        c.execute('SELECT * FROM users')
+        users = c.fetchall()
+        conn.close()
+
+        user_objs = []
+        for user in users:
+            user_obj = User(
+                user[0], user[1], user[2],
+                user[3], user[4], user[5]
+                )
+            user_objs.append(user_obj)
+
+        return user_objs
+
 
 class UserGroup:
     """Define a UserGroup class"""
