@@ -7,6 +7,7 @@ import os
 import logging
 import traceback
 from time import strftime
+from dotenv import load_dotenv
 from logging.handlers import RotatingFileHandler
 from logging.config import dictConfig
 from flask import Flask, render_template, request, url_for, redirect
@@ -57,6 +58,10 @@ login_manager.init_app(app)
 app.register_blueprint(theme_bp)
 app.register_blueprint(user_bp)
 
+# Load environment variables from .env file
+load_dotenv()
+
+port = os.getenv("FLASK_PORT")
 
 class AnonymousUser(AnonymousUserMixin):
     """Define an anonymous user class for the login manager to use"""
@@ -228,4 +233,4 @@ if __name__ == '__main__':
     logger.setLevel(logging.ERROR)
     logger.addHandler(handler)
     from waitress import serve
-    serve(app, host="0.0.0.0", port=5000)
+    serve(app, host="0.0.0.0", port=port)
