@@ -42,7 +42,7 @@ except requests.exceptions.RequestException as e:
 if response.status_code == requests.codes.ok:
     # Strip the string of characters
     response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
-    print (response_content_string)
+    print(response_content_string)
     with open('response.txt', 'w') as f:
         f.write(response_content_string)
 

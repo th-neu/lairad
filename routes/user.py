@@ -1,11 +1,11 @@
 """
 module for adding a user
 """
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
+from flask import Blueprint, render_template, request
+from flask import redirect, url_for, current_app
 from flask_login import login_required, current_user
 from db import get_db
 from models import User
-
 
 
 user_bp = Blueprint('user', __name__, url_prefix='/')
