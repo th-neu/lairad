@@ -254,9 +254,9 @@ Navigate your web browser to localhost:5000 (replace with IP for docker / none l
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Rewrite Code with proper python structure
-- [ ] Working task management (call llm with goals and act on it [search, write file])
-- [ ] Translations
+- [ ] Rewrite Code with proper python structure.
+- [ ] Working task management (call llm with goals and act on it [search, write file]).
+- [ ] Translations:
     - [ ] German
 
 See the [open issues](https://github.com/th-neu/lairad/issues) for a full list of proposed features (and known issues).
@@ -306,11 +306,13 @@ Project Link: [https://github.com/th-neu/lairad](https://github.com/th-neu/laira
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 * [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
 * [ghostwriter](https://ghostwriter.kde.org/de/)
-* [Auto-gpt](https://github.com/Significant-Gravitas/Auto-GPT)
 * [whoogle-search](https://github.com/benbusby/whoogle-search)
+* [gogs](https://github.com/gogs/gogs)
+* [pylint](https://pylint.org/)
+* [Auto-gpt](https://github.com/Significant-Gravitas/Auto-GPT)
+* [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
