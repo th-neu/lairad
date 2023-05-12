@@ -56,5 +56,11 @@
     <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
     {% block scripts %}{% endblock %}
+	
   </body>
+  <footer class="footer mt-auto py-3 bg-dark">
+  <div class="container-fluid text-center">
+    <span class="text-muted"><a href="https://github.com/th-neu/lairad">lairad</a> version {{ app_version }}</span>
+	</footer>
+  </div>
 </html>
