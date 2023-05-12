@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}List of Projects - lairad{% endblock %}
+
+{% block content %}
+  <h1>List of Projects</h1>
+  <table class="table">
+    <thead>
+      <tr>
+	    <th>id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Tasks</th>
+		<th>Goal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in Projects %}
+        <tr>
+		  <td>{{ projects.id }}</td>
+          <td>{{ projects.name }}</td>
+          <td>{{ projects.description }}</td>
+          <td>{{ projects.tasks }}</td>
+		  <td>{{ projects.goal }}</td>
+   		</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,5 +1,5 @@
 """
-defines various models (user,usergroup)
+defines various models (user,usergroup) project (list)
 """
 # Import necessary modules
 from flask_login import UserMixin
@@ -112,3 +112,29 @@ class UserGroup:
         if user_group:
             return UserGroup(user_group[0], user_group[1], user_group[2])
         return None
+
+class Projects:
+    """Define a Project class"""
+    def __init__(self, id, name, description, tasks, goals):
+        """init function"""
+        self.id = id
+        self.name = name
+        self.description = description
+        self.tasks = tasks
+        self.goals = goals
+
+    @staticmethod
+    def get_all_projects(project_objs):
+        """Retrieve all projects from the database"""
+        conn = get_db()
+        c = conn.cursor()
+        c.execute('SELECT * FROM projects')
+        projects = c.fetchall()
+        conn.close()
+
+        project_objs = []
+        for project in projects:
+            project_obj = Projects(project[0], project[1], project[2],project[3], project[4])
+        project_objs.append(project_obj)
+
+        return project_objs

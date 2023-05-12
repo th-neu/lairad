@@ -1,11 +1,11 @@
 """
-add projects route
+add projects route / list
 """
 
 from flask import Blueprint, render_template, request, redirect, url_for
-# from flask import current_app as app
 from flask_login import login_required, current_user
 from db import get_db
+from models import Projects
 
 project_bp = Blueprint('project', __name__, url_prefix='/')
 
@@ -38,3 +38,12 @@ def add_project(app=None):
 
     # Render the add user form
     return render_template('add_project.html')
+
+
+@project_bp.route('/list_projects')
+@login_required
+def list_projects():
+    """List all projets"""
+    project_objs = []
+    projects = Projects.get_all_projects(project_objs)
+    return render_template('list_projects.html', projects=projects)
