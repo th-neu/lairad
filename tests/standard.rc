@@ -430,7 +430,9 @@ disable=raw-checker-failed,
         deprecated-pragma,
         use-symbolic-message-instead,
 		undefined-variable,
-		invalid-name
+		invalid-name,
+		too-many-arguments,
+		unused-import
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
