@@ -4,7 +4,7 @@
 
 {% block content %}
   <h1>List of Projects</h1>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
       <tr>
 	    <th>id</th>
@@ -15,13 +15,13 @@
       </tr>
     </thead>
     <tbody>
-      {% for project in Projects %}
+      {% for project in projects %}
         <tr>
-		  <td>{{ projects.id }}</td>
-          <td>{{ projects.name }}</td>
-          <td>{{ projects.description }}</td>
-          <td>{{ projects.tasks }}</td>
-		  <td>{{ projects.goal }}</td>
+		  <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+          <td>{{ project.description }}</td>
+          <td>{{ project.tasks }}</td>
+		  <td>{{ project.goal }}</td>
    		</tr>
       {% endfor %}
     </tbody>
