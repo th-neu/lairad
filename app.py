@@ -62,6 +62,7 @@ app.register_blueprint(user_bp)
 load_dotenv()
 
 port = os.getenv("FLASK_PORT")
+log_backupCount = os.getenv("backupCount")
 
 class AnonymousUser(AnonymousUserMixin):
     """Define an anonymous user class for the login manager to use"""
@@ -227,7 +228,7 @@ def exceptions(e):
 if __name__ == '__main__':
     # app.run(debug=True)
     handler = RotatingFileHandler(
-                                  'logs/app.log', maxBytes=10000, backupCount=3
+                                  'logs/app.log', maxBytes=1000000, backupCount=log_backupCount
                                   )
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.ERROR)
