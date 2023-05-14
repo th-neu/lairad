@@ -3,7 +3,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![Tests][tests-url]][tests-shield]
-
+[![Ruff][Ruff-url]][Ruff-shield]
 
 
 
@@ -339,3 +339,5 @@ Project Link: [https://github.com/th-neu/lairad](https://github.com/th-neu/laira
 [Flask-url]: https://flask.palletsprojects.com/
 [Python.org]: https://img.shields.io/badge/Python-563D7C?style=plastic&logo=bootstrap&logoColor=white
 [Python-url]: https://www.python.org/
+[Ruff-shield]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json?style=plastic
+[Ruff-url]: https://github.com/charliermarsh/ruff
