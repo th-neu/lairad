@@ -254,9 +254,11 @@ Navigate your web browser to localhost:5000 (replace with IP for docker / none l
 <!-- ROADMAP -->
 ## Roadmap
 
+- [ ] Deploy tests (flask web front end, db back end, python basic logic)
 - [ ] Rewrite Code with proper python structure.
-- [ ] Working task management (call llm with goals and act on it [search, write file]).
-- [ ] Translations:
+- [ ] Working task management (call LLM with goals and act on it [search, write file]).
+- [ ] Localization Support
+    - [ ] English
     - [ ] German
 
 See the [open issues](https://github.com/th-neu/lairad/issues) for a full list of proposed features (and known issues).
