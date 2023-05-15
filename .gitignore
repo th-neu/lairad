@@ -169,3 +169,7 @@ cython_debug/
 Prompt Work
 llmapi/response.txt
 llmapi/prompt_testing_ip_moved.txt
+prompt.txt
+prompt2.txt
+prompt3.txt
+response.txt
