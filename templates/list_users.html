@@ -8,11 +8,12 @@
     <thead>
       <tr>
 	    <th>id</th>
-        <th>username</th>
+        <th>Username</th>
         <th>Password</th>
         <th>Password</th>
-		<th>is admin</th>
-		<th>user group</th>
+		<th>Is Admin</th>
+		<th>User Group</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +25,15 @@
           <td>{{ user.theme }}</td>
 		  <td>{{ user.is_admin }}</td>
           <td>{{ user.user_group }}</td>
+          <td>
+            {% if user.is_admin %}
+              N/A
+            {% else %}
+              <form action="{{ url_for('user.delete_user', user_id=user.id) }}" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            {% endif %}
+          </td>
 		</tr>
       {% endfor %}
     </tbody>

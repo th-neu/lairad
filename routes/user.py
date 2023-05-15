@@ -47,3 +47,21 @@ def list_users():
     user_objs = []
     users = User.get_all_users(user_objs)
     return render_template('list_users.html', users=users)
+
+
+@user_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+@login_required
+def delete_user(user_id):
+    """Delete a user from the database"""
+    # check if current user is admin
+    if not current_user.is_admin:
+        return redirect(url_for('home'))
+
+    # Delete the user from the database
+    conn = get_db()
+    c = conn.cursor()
+    c.execute('DELETE FROM users WHERE id = ?', (user_id,))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('user.list_users'))
