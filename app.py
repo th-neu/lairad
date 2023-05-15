@@ -7,14 +7,15 @@ import os
 import logging
 import traceback
 from time import strftime
-from dotenv import load_dotenv
 from logging.handlers import RotatingFileHandler
 from logging.config import dictConfig
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, url_for, redirect
 from flask import current_app as app
 from flask_login import login_required, LoginManager, current_user, login_user
 from flask_login import UserMixin, logout_user
 from flask_login.mixins import AnonymousUserMixin
+from flask.logging import create_logger
 from werkzeug.urls import url_parse
 # import User model and database connection from other files
 from models import User
@@ -22,6 +23,7 @@ from db import get_db
 from theme import theme_bp
 from routes.project import project_bp
 from routes.user import user_bp
+from routes.worker import worker_bp
 
 
 dictConfig({
@@ -43,6 +45,7 @@ dictConfig({
 # Create a Flask application instance
 app = Flask(__name__)
 app.register_blueprint(project_bp, app=app)
+LOG = create_logger(app)
 
 # Set the Flask secret key from an environment variable
 app.secret_key = os.getenv('SECRET_KEY')
@@ -57,12 +60,14 @@ login_manager.init_app(app)
 # Register the blueprint from the theme module
 app.register_blueprint(theme_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(worker_bp)
 
 # Load environment variables from .env file
 load_dotenv()
 
 port = os.getenv("FLASK_PORT")
 log_backupCount = os.getenv("backupCount")
+
 
 class AnonymousUser(AnonymousUserMixin):
     """Define an anonymous user class for the login manager to use"""
@@ -124,7 +129,7 @@ def unauthorized():
 
 
 @app.errorhandler(404)
-def not_found_error(e):
+def not_found_error(e):  # pylint: disable=unused-argument
     """404 error handler"""
     return render_template('404.html'), 404
 
@@ -171,7 +176,7 @@ def login():
                 user[3], user[4], user[5]
                 )
             login_user(user_obj)
-            app.logger.info('%s logged in successfully', user_obj.username)
+            LOG.info('%s logged in successfully', user_obj.username)
 
             # Redirect the user to the original page they were trying to access
             next_page = request.args.get('next')
@@ -209,7 +214,7 @@ def home():
 
 
 @app.errorhandler(Exception)
-def exceptions(e):
+def exceptions(e):  # pylint: disable=unused-argument
     """ Logging after every Exception. """
     ts = strftime('[%Y-%b-%d %H:%M]')
     tb = traceback.format_exc()
@@ -228,7 +233,8 @@ def exceptions(e):
 if __name__ == '__main__':
     # app.run(debug=True)
     handler = RotatingFileHandler(
-                                  'logs/app.log', maxBytes=1000000, backupCount=log_backupCount
+                                  'logs/app.log', maxBytes=1000000,
+                                  backupCount=log_backupCount
                                   )
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.ERROR)
