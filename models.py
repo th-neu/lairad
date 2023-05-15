@@ -113,6 +113,7 @@ class UserGroup:
             return UserGroup(user_group[0], user_group[1], user_group[2])
         return None
 
+
 class Projects:
     """Define a Project class"""
     def __init__(self, id, name, description, tasks, goals):
@@ -134,7 +135,23 @@ class Projects:
 
         project_objs = []
         for project in projects:
-            project_obj = Projects(project[0], project[1], project[2],project[3], project[4])
-        project_objs.append(project_obj)
+            project_obj = Projects(
+                                   project[0], project[1],
+                                   project[2], project[3], project[4]
+                                   )
+            project_objs.append(project_obj)
 
         return project_objs
+
+    @staticmethod
+    def get_task_from_database():
+        """get task from database"""
+        conn = get_db(current_app)
+        c = conn.cursor()
+        c.execute('SELECT tasks FROM projects')
+        c.fetchall()
+        conn.close()
+        tasks = []
+        if tasks:
+            return tasks(project[3])
+        return None
