@@ -47,3 +47,21 @@ def list_projects():
     project_objs = []
     projects = Projects.get_all_projects(project_objs)
     return render_template('list_projects.html', projects=projects)
+
+
+@project_bp.route('/delete_project/<int:project_id>', methods=['POST'])
+@login_required
+def delete_project(project_id):
+    """Delete a project from the database"""
+    # check if current user is admin
+    if not current_user.is_admin:
+        return redirect(url_for('home'))
+
+    # Delete the project from the database
+    conn = get_db()
+    c = conn.cursor()
+    c.execute('DELETE FROM projects WHERE id = ?', (project_id,))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('project.list_projects'))

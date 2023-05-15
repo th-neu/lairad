@@ -22,7 +22,15 @@
           <td>{{ project.description }}</td>
           <td>{{ project.tasks }}</td>
 		  <td>{{ project.goals }}</td>
-   		</tr>
+		  <td> 
+           
+              <form action="{{ url_for('project.delete_project', project_id=project.id) }}" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+           
+          </td>
+		</tr>
+   		
       {% endfor %}
     </tbody>
   </table>
