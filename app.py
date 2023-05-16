@@ -24,6 +24,7 @@ from theme import theme_bp
 from routes.project import project_bp
 from routes.user import user_bp
 from routes.worker import worker_bp
+from routes.prompt import prompt_bp
 
 
 dictConfig({
@@ -61,6 +62,7 @@ login_manager.init_app(app)
 app.register_blueprint(theme_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(worker_bp)
+app.register_blueprint(prompt_bp)
 
 # Load environment variables from .env file
 load_dotenv()

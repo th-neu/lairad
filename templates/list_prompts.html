@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}List of Prompts - lairad{% endblock %}
+
+{% block content %}
+  <h1>List of Prompts</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+	    <th>id</th>
+        <th>Intro</th>
+        <th>Constraints</th>
+        <th>Commands</th>
+		<th>Resources</th>
+		<th>Performance Evaluation</th>
+		<th>Response Format</th>
+		<th>Outro</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prompt in prompts %}
+        <tr>
+		  <td>{{ prompt.id }}</td>
+		  <td>{{ prompt.intro }}</td>
+          <td>{{ prompt.constraints }}</td>
+          <td>{{ prompt.commands }}</td>
+		  <td>{{ prompt.Resources }}</td>
+          <td>{{ prompt.performance_eval }}</td>
+		  <td>{{ prompt.response_form }}</td>
+		  <td>{{ prompt.outro }}</td>
+		  <td> 
+           
+              <form action="{{ url_for('prompt.delete_prompt', project_id=prompt.id) }}" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+           
+          </td>
+		</tr>
+   		
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

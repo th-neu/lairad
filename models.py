@@ -155,3 +155,39 @@ class Projects:
         if tasks:
             return tasks(project[3])
         return None
+
+
+class Prompts:
+    """Define a Prompt class"""
+    def __init__(
+                 self, id, intro, constraints, commands, resources, performance_eval, response_form, outro
+                ):
+        """init function"""
+        self.id = id
+        self.intro = intro
+        self.constraints = constraints
+        self.commands = commands
+        self.resources = resources
+        self.performance_eval = performance_eval
+        self.response_form = response_form
+        self.outro = outro
+        
+    @staticmethod
+    def get_all_prompts(prompt_objs):
+        """Retrieve all projects from the database"""
+        conn = get_db()
+        c = conn.cursor()
+        c.execute('SELECT * FROM prompts')
+        prompts = c.fetchall()
+        conn.close()
+
+        prompt_objs = []
+        for prompt in prompts:
+            prompt_objs = Prompts(
+                                   prompt[0], prompt[1], prompt[2],
+                                   prompt[3], prompt[4], prompt[5],
+                                   prompt[6], prompt[7]                                   
+                                   )
+            prompt_objs.append(prompt_objs)
+
+        return prompt_objs
