@@ -1,5 +1,5 @@
 """
-defines various models (user,usergroup) project (list)
+defines various models (user,usergroup) project (list) / prompt
 """
 # Import necessary modules
 from flask_login import UserMixin
@@ -160,7 +160,7 @@ class Projects:
 class Prompts:
     """Define a Prompt class"""
     def __init__(
-                 self, id, intro, constraints, commands, resources, performance_eval, response_form, outro
+                 self, id, intro, constraints, commands, resources, performance_eval, response_form, outro, model
                 ):
         """init function"""
         self.id = id
@@ -171,10 +171,11 @@ class Prompts:
         self.performance_eval = performance_eval
         self.response_form = response_form
         self.outro = outro
+        self.model = model
         
     @staticmethod
     def get_all_prompts(prompt_objs):
-        """Retrieve all projects from the database"""
+        """Retrieve all prompts from the database"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts')
@@ -183,11 +184,11 @@ class Prompts:
 
         prompt_objs = []
         for prompt in prompts:
-            prompt_objs = Prompts(
+            prompt_obj = Prompts(
                                    prompt[0], prompt[1], prompt[2],
                                    prompt[3], prompt[4], prompt[5],
-                                   prompt[6], prompt[7]                                   
-                                   )
-            prompt_objs.append(prompt_objs)
+                                   prompt[6], prompt[7], prompt[8]                                   
+                                )
+            prompt_objs.append(prompt_obj)
 
         return prompt_objs

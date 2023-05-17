@@ -15,6 +15,7 @@
 		<th>Performance Evaluation</th>
 		<th>Response Format</th>
 		<th>Outro</th>
+		<th>Model</th>
       </tr>
     </thead>
     <tbody>
@@ -28,9 +29,10 @@
           <td>{{ prompt.performance_eval }}</td>
 		  <td>{{ prompt.response_form }}</td>
 		  <td>{{ prompt.outro }}</td>
+		  <td>{{ prompt.model }}</td>
 		  <td> 
            
-              <form action="{{ url_for('prompt.delete_prompt', project_id=prompt.id) }}" method="post">
+              <form action="{{ url_for('prompt.delete_prompt', prompt_id=prompt.id) }}" method="post">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
            

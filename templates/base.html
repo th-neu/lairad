@@ -33,6 +33,7 @@
 			    {% if current_user.is_admin %}
                 <a class="dropdown-item" href="{{ url_for('user.add_user') }}">Add User</a>
 				<a class="dropdown-item" href="{{ url_for('project.add_project') }}">Add Project</a>
+				<a class="dropdown-item" href="{{ url_for('prompt.add_prompt') }}">Add Prompt</a>
                 {% endif %}
                 <a class="dropdown-item" href="{{ url_for('theme.theme') }}">Theme</a>
 				<a class="dropdown-item" href="{{ url_for('project.list_projects') }}">List Projects</a>
