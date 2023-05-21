@@ -302,12 +302,13 @@ def llama_cpp_python_api(task):
         goals = Projects.get_goals_from_database()
         print(goals)
         # Request body
+        prompt3 = prompt1 + "Goals:" + goals + prompt2
         data = {
             "temperature": llama_temperature,
             "max_tokens": llama_tokens,
-            "p1": prompt1,
-            "goals": goals,
-            "": prompt2,
+            "prompt": prompt3,
+            # "goals": goals,
+            # "": prompt2,
             "stop": ["###"]
         }
         json_data = json.dumps(data)
