@@ -34,6 +34,7 @@ def get_db():
         g._database = db
     return db
 
+
 def close_db():
     db = g.pop('_database', None)
     if db is not None:
