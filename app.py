@@ -216,7 +216,11 @@ def home():
         # Set the current user's theme to the selected theme
         current_user.theme = theme
     # Render the home page with the current user's selected theme
-    return render_template('index.html', theme=current_user.theme, app_version=__version__)
+    return render_template(
+                           'index.html',
+                           theme=current_user.theme,
+                           app_version=__version__
+                           )
 
 
 @app.errorhandler(Exception)
@@ -250,14 +254,21 @@ def select_project():
     else:
         # get all projects from the database
         projects = Projects.get_all_projects()
-        return render_template('select_project.html', projects=projects, app_version=__version__)
+        return render_template(
+                                'select_project.html',
+                                projects=projects,
+                                app_version=__version__
+                                )
 
 
 @app.route('/start_worker', methods=['POST'])
 @login_required
 def start_worker_form():
     project_id = request.form['project']
-    return redirect(url_for('worker.start_worker_route', project_id=project_id))
+    return redirect(url_for(
+                            'worker.start_worker_route',
+                            project_id=project_id)
+                            )
 
 
 @app.route('/start_worker/<int:project_id>')
@@ -265,7 +276,10 @@ def start_worker_form():
 def start_worker_route(project_id):
     """start worker route"""
     project = Projects.query.first()  # Get the first project from the database
-    task = {'api_url': os.getenv("LLAMA_CCP_API_URL"), 'data': {'project_id': project.id}}
+    task = {
+            'api_url': os.getenv("LLAMA_CCP_API_URL"),
+            'data': {'project_id': project.id}
+            }
     # task = Projects.get_task_from_database()
     p = start_worker(task, llama_cpp_python_api)
     worker_processes.append(p)
@@ -282,24 +296,28 @@ def start_worker(task, worker_function):
 def llama_cpp_python_api(task):
     with app.app_context():
         # Read the prompt text from the database or any other source
-        prompt = Prompts.get_prompt_from_database()
-        # prompt1 = Prompts.get_prompt_first_part()
-        # prompt2 = Prompts.get_prompt_second_part()
-        # goals = Projects.get_goals_from_database()
-
+        # prompt = Prompts.get_prompt_from_database()
+        prompt1 = Prompts.get_prompt_first_part()
+        prompt2 = Prompts.get_prompt_second_part()
+        goals = Projects.get_goals_from_database()
+        print(goals)
         # Request body
         data = {
             "temperature": llama_temperature,
             "max_tokens": llama_tokens,
-            "prompt": prompt,
-            # "goals": goals,
-            # "prompt": prompt2,
+            "p1": prompt1,
+            "goals": goals,
+            "": prompt2,
             "stop": ["###"]
         }
         json_data = json.dumps(data)
         # Send the POST request to the API
         try:
-            response = requests.post(os.getenv("LLAMA_CCP_API_URL"), json=data, timeout=llama_request_timeout)          
+            response = requests.post(
+                                    os.getenv("LLAMA_CCP_API_URL"),
+                                    json=data,
+                                    timeout=llama_request_timeout
+                                    )
             print("Request URL:", response.request.url)
             print("Request Method:", response.request.method)
             print("Request Headers:", response.request.headers)
@@ -309,12 +327,13 @@ def llama_cpp_python_api(task):
             exit(1)
 
         # Process the response or perform any other actions
-        json_data = json.loads(json_response)
+        print(response.content)
         xml_object = json_data['choices'][0]['text']
         response_data = response.json()
+        json_data = json.loads(json_response)
         # response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
-        print(response.content)
-        #with open('response.txt', 'w') as f:
+        print(response)
+        # with open('response.txt', 'w') as f:
         #    f.write(response.content)
         # ...
         # Implement your response processing logic here

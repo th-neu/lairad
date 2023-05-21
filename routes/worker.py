@@ -1,11 +1,11 @@
 import os
 import requests
-import re
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
-from flask_login import login_required, current_user
+# import re
+from flask import Blueprint, render_template
+from flask import request, redirect, url_for, current_app
+from flask_login import login_required
 from dotenv import load_dotenv
 from worker_manager import start_worker, stop_worker
-from db import get_db
 from models import Projects, Prompts
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
@@ -22,13 +22,6 @@ llama_tokens = os.getenv("LLAMA_MAX_TOKEN")
 llama_echo = os.getenv("LLAMA_ECHO")
 llama_request_timeout = int(os.getenv("LLAMA_REQUEST_TIMEOUT"))
 
-def create_app():
-    app = Flask(__name__)
-    # Initialize your Flask app here
-    # ...
-
-    return app
-    
 
 def llama_cpp_python_api():
     with current_app.app_context():
@@ -45,13 +38,17 @@ def llama_cpp_python_api():
 
         # Send the POST request to the API
         try:
-            response = requests.post(api_url, json=data, timeout=llama_request_timeout)
+            response = requests.post(
+                                    api_url,
+                                    json=data,
+                                    timeout=llama_request_timeout
+                                    )
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while sending the request: {e}")
             exit(1)
 
         # Process the response or perform any other actions
-        response_data = response.json()
+        # response_data = response.json()
         # ...
         # Implement your response processing logic here
 

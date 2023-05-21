@@ -28,7 +28,6 @@ def add_prompt(app=None):
         prompt_performance_eval = request.form['prompt_performance_eval']
         prompt_response_form = request.form['prompt_response_form']
         prompt_outro = request.form['prompt_outro']
-        
 
         # Save the project details to the database
         conn = get_db(app)
@@ -52,7 +51,11 @@ def list_prompts():
     """List all prompts"""
     prompt_objs = []
     prompts = Prompts.get_all_prompts(prompt_objs)
-    return render_template('list_prompts.html', prompts=prompts, app_version=__version__)
+    return render_template(
+                           'list_prompts.html',
+                           prompts=prompts,
+                           app_version=__version__
+                           )
 
 
 @prompt_bp.route('/delete_prompt/<int:prompt_id>', methods=['POST'])

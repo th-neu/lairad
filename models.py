@@ -161,19 +161,24 @@ class Projects:
         """get task from database"""
         conn = get_db()
         c = conn.cursor()
-        c.execute('SELECT goals FROM projects LIMIT 1')
-        c.fetchall()
+        c.execute('SELECT * FROM projects LIMIT 1')
+        goal = c.fetchone()
         conn.close()
-        goals = []
-        if goals:
-            return goals(project[4])
-        return None
+
+        if goal:
+            # Assuming the prompt text is in columns 2, 3, and 4
+            goal_text = (goal[4])
+            return goal_text
+        else:
+            return ""
 
 
 class Prompts:
     """Define a Prompt class"""
     def __init__(
-                 self, id, intro, constraints, commands, resources, performance_eval, response_form, outro, model
+                 self, id, intro, constraints, commands,
+                 resources, performance_eval,
+                 response_form, outro, model
                 ):
         """init function"""
         self.id = id
@@ -210,39 +215,36 @@ class Prompts:
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
         prompt = c.fetchone()
-        conn.close()
 
         if prompt:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt_text = ' '.join(prompt[1:8])
             return prompt_text
         else:
-            return ""  # Return an empty string if no prompt is found or handle the case as per your requirements
+            return ""
 
     def get_prompt_first_part():
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
         prompt = c.fetchone()
-        conn.close()
 
         if prompt:
             # Assuming the prompt text is in columns 2, 3, and 4
-            prompt_text = ' '.join(prompt[1])
+            prompt_text = (prompt[1])
             return prompt_text
         else:
-            return ""  # Return an empty string if no prompt is found or handle the case as per your requirements
+            return ""
 
     def get_prompt_second_part():
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
         prompt2 = c.fetchone()
-        conn.close()
 
         if prompt2:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt2_text = ' '.join(prompt2[2:8])
             return prompt2_text
         else:
-            return ""  # Return an empty string if no prompt is found or handle the case as per your requirements
+            return ""

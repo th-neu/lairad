@@ -47,7 +47,11 @@ def list_projects():
     """List all projets"""
     project_objs = []
     projects = Projects.get_all_projects()
-    return render_template('list_projects.html', projects=projects , app_version=__version__)
+    return render_template(
+                           'list_projects.html',
+                           projects=projects,
+                           app_version=__version__
+                           )
 
 
 @project_bp.route('/delete_project/<int:project_id>', methods=['POST'])
