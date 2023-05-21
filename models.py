@@ -143,7 +143,6 @@ class Projects:
 
         return project_objs
 
-
     @staticmethod
     def get_task_from_database():
         """get task from database"""
@@ -186,7 +185,7 @@ class Prompts:
         self.response_form = response_form
         self.outro = outro
         self.model = model
-        
+
     @staticmethod
     def get_all_prompts(prompt_objs):
         """Retrieve all prompts from the database"""
@@ -201,10 +200,9 @@ class Prompts:
             prompt_obj = Prompts(
                                    prompt[0], prompt[1], prompt[2],
                                    prompt[3], prompt[4], prompt[5],
-                                   prompt[6], prompt[7], prompt[8]                                   
-                                )
+                                   prompt[6], prompt[7], prompt[8]
+                                   )
             prompt_objs.append(prompt_obj)
-
         return prompt_objs
 
     def get_prompt_from_database():
@@ -218,10 +216,9 @@ class Prompts:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt_text = ' '.join(prompt[1:8])
             return prompt_text
-            conn = close_db()
         else:
             return ""  # Return an empty string if no prompt is found or handle the case as per your requirements
-            
+
     def get_prompt_first_part():
         conn = get_db()
         c = conn.cursor()
@@ -245,7 +242,7 @@ class Prompts:
 
         if prompt2:
             # Assuming the prompt text is in columns 2, 3, and 4
-            prompt_text2 = ' '.join(prompt[2:8])
-            return prompt_text2
+            prompt2_text = ' '.join(prompt2[2:8])
+            return prompt2_text
         else:
             return ""  # Return an empty string if no prompt is found or handle the case as per your requirements
