@@ -58,9 +58,6 @@ llama_tokens = os.getenv("LLAMA_MAX_TOKEN")
 llama_echo = os.getenv("LLAMA_ECHO")
 llama_request_timeout = int(os.getenv("LLAMA_REQUEST_TIMEOUT"))
 
-# task = {
-#    'api_url': api_url    
-# }
 
 # Set the LOGIN_DISABLED flag to False by default
 app.config['LOGIN_DISABLED'] = False  # set to True if user is not logged in
@@ -302,8 +299,7 @@ def llama_cpp_python_api(task):
         json_data = json.dumps(data)
         # Send the POST request to the API
         try:
-            response = requests.post(os.getenv("LLAMA_CCP_API_URL"), json=data, timeout=llama_request_timeout)
-          
+            response = requests.post(os.getenv("LLAMA_CCP_API_URL"), json=data, timeout=llama_request_timeout)          
             print("Request URL:", response.request.url)
             print("Request Method:", response.request.method)
             print("Request Headers:", response.request.headers)
