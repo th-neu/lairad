@@ -16,7 +16,8 @@
     <br />
     *<a href="https://github.com/th-neu/lairad/issues">Report Bug</a>
     *<a href="https://github.com/th-neu/lairad/issues">Request Feature</a>
-  </p>
+	*<a href="https://github.com/th-neu/lairad/discussions">Discussion</a>
+ </p>
 </div>
 
 
