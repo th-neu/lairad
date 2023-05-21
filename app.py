@@ -1,11 +1,9 @@
-"""
-main lairad app, provides login/lougout and main routes
-"""
-
 # Import the required packages
 import os
 import logging
 import traceback
+import multiprocessing
+import json
 from time import strftime
 from logging.handlers import RotatingFileHandler
 from logging.config import dictConfig
@@ -17,14 +15,15 @@ from flask_login import UserMixin, logout_user
 from flask_login.mixins import AnonymousUserMixin
 from flask.logging import create_logger
 from werkzeug.urls import url_parse
+import requests
 # import User model and database connection from other files
-from models import User
+from models import User, Projects, Prompts
 from db import get_db
 from theme import theme_bp
 from routes.project import project_bp
 from routes.user import user_bp
-from routes.worker import worker_bp
 from routes.prompt import prompt_bp
+from _version import __version__
 
 
 dictConfig({
@@ -48,8 +47,20 @@ app = Flask(__name__)
 app.register_blueprint(project_bp, app=app)
 LOG = create_logger(app)
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Set the Flask secret key from an environment variable
 app.secret_key = os.getenv('SECRET_KEY')
+api_url = os.getenv("LLAMA_CCP_API_URL")
+llama_temperature = os.getenv("LLAMA_TEMPERATURE")
+llama_tokens = os.getenv("LLAMA_MAX_TOKEN")
+llama_echo = os.getenv("LLAMA_ECHO")
+llama_request_timeout = int(os.getenv("LLAMA_REQUEST_TIMEOUT"))
+
+# task = {
+#    'api_url': api_url    
+# }
 
 # Set the LOGIN_DISABLED flag to False by default
 app.config['LOGIN_DISABLED'] = False  # set to True if user is not logged in
@@ -57,15 +68,12 @@ app.config['LOGIN_DISABLED'] = False  # set to True if user is not logged in
 # Create a login manager instance and initialize it with the Flask app instance
 login_manager = LoginManager()
 login_manager.init_app(app)
+worker_processes = []  # Define the worker_processes list
 
 # Register the blueprint from the theme module
 app.register_blueprint(theme_bp)
 app.register_blueprint(user_bp)
-app.register_blueprint(worker_bp)
 app.register_blueprint(prompt_bp)
-
-# Load environment variables from .env file
-load_dotenv()
 
 port = os.getenv("FLASK_PORT")
 log_backupCount = os.getenv("backupCount")
@@ -99,28 +107,29 @@ def after_request(response):
             request.scheme,
             request.full_path,
             response.status
-            )
+        )
     return response
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    """login manager / loads user from database using the user_id"""
-    conn = get_db(app)
+    """Login manager / loads user from the database using the user_id"""
+    conn = get_db()
+    if conn is None:
+        # If the database connection is not established, return None
+        return None
+
     c = conn.cursor()
     c.execute('SELECT * FROM users WHERE id=?', (user_id,))
     user = c.fetchone()
-    # conn.close()
 
     if not user:
         return None
 
-    user_obj = UserMixin()
-    user_obj.id = user[0]
-    user_obj.username = user[1]
-    user_obj.password = user[2]
-    user_obj.theme = user[3]
-    user_obj.is_admin = user[4]
+    user_obj = User(
+        user[0], user[1], user[2],
+        user[3], user[4], user[5]
+    )
     return user_obj
 
 
@@ -144,7 +153,7 @@ def logout():
     logout_user()
 
     # Redirect the user to the login page
-    return redirect(url_for('login'))
+    return redirect(url_for('login', app_version=__version__))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -156,14 +165,12 @@ def login():
         return redirect(url_for('home'))
 
     if request.method == 'POST':
-        # Connect to the database
-        # db = get_db(app)
         # Get the username and password from the form
         username = request.form['username']
         password = request.form['password']
 
         # Check if the username and password are correct
-        conn = get_db(app)
+        conn = get_db()
         c = conn.cursor()
         c.execute(
             'SELECT * FROM users WHERE username=? AND password=?',
@@ -176,7 +183,7 @@ def login():
             user_obj = User(
                 user[0], user[1], user[2],
                 user[3], user[4], user[5]
-                )
+            )
             login_user(user_obj)
             LOG.info('%s logged in successfully', user_obj.username)
 
@@ -190,14 +197,14 @@ def login():
         return render_template('login.html', error=error)
     # else:
     # If the request method is GET, show the login page
-    return render_template('login.html')
+    return render_template('login.html', app_version=__version__)
 
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
-    """homme route"""
-    db = get_db(app)
+    """home route"""
+    db = get_db()
     if request.method == 'POST':
         # Retrieve the user's selected theme from the form
         theme = request.form.get('theme')
@@ -212,7 +219,7 @@ def home():
         # Set the current user's theme to the selected theme
         current_user.theme = theme
     # Render the home page with the current user's selected theme
-    return render_template('index.html', theme=current_user.theme)
+    return render_template('index.html', theme=current_user.theme, app_version=__version__)
 
 
 @app.errorhandler(Exception)
@@ -230,6 +237,94 @@ def exceptions(e):  # pylint: disable=unused-argument
             tb
             )
     return "Internal Server Error", 500
+
+
+@app.route('/select_project', methods=['GET', 'POST'])
+@login_required
+def select_project():
+    """select project route"""
+    if request.method == 'POST':
+        # get the selected project from the form
+        project_id = request.form.get('project_id')
+        task = Projects.get_task_from_database()
+        p = start_worker(task, llama_cpp_python_api)
+        worker_processes.append(p)
+        return 'Worker started'
+    else:
+        # get all projects from the database
+        projects = Projects.get_all_projects()
+        return render_template('select_project.html', projects=projects, app_version=__version__)
+
+
+@app.route('/start_worker', methods=['POST'])
+@login_required
+def start_worker_form():
+    project_id = request.form['project']
+    return redirect(url_for('worker.start_worker_route', project_id=project_id))
+
+
+@app.route('/start_worker/<int:project_id>')
+@login_required
+def start_worker_route(project_id):
+    """start worker route"""
+    project = Projects.query.first()  # Get the first project from the database
+    task = {'api_url': os.getenv("LLAMA_CCP_API_URL"), 'data': {'project_id': project.id}}
+    # task = Projects.get_task_from_database()
+    p = start_worker(task, llama_cpp_python_api)
+    worker_processes.append(p)
+    return 'Worker started'
+
+
+def start_worker(task, worker_function):
+    """start worker"""
+    p = multiprocessing.Process(target=worker_function, args=(task,))
+    p.start()
+    return p
+
+
+def llama_cpp_python_api(task):
+    with app.app_context():
+        # Read the prompt text from the database or any other source
+        prompt = Prompts.get_prompt_from_database()
+        # prompt1 = Prompts.get_prompt_first_part()
+        # prompt2 = Prompts.get_prompt_second_part()
+        # goals = Projects.get_goals_from_database()
+
+        # Request body
+        data = {
+            "temperature": llama_temperature,
+            "max_tokens": llama_tokens,
+            "prompt": prompt,
+            # "goals": goals,
+            # "prompt": prompt2,
+            "stop": ["###"]
+        }
+        json_data = json.dumps(data)
+        # Send the POST request to the API
+        try:
+            response = requests.post(os.getenv("LLAMA_CCP_API_URL"), json=data, timeout=llama_request_timeout)
+          
+            print("Request URL:", response.request.url)
+            print("Request Method:", response.request.method)
+            print("Request Headers:", response.request.headers)
+            print("Request Body:", response.request.body)
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred while sending the request: {e}")
+            exit(1)
+
+        # Process the response or perform any other actions
+        json_data = json.loads(json_response)
+        xml_object = json_data['choices'][0]['text']
+        response_data = response.json()
+        # response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
+        print(response.content)
+        #with open('response.txt', 'w') as f:
+        #    f.write(response.content)
+        # ...
+        # Implement your response processing logic here
+
+        # You can return a result or update the database if needed
+        # ...
 
 
 if __name__ == '__main__':

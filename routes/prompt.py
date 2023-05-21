@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from db import get_db
 from models import Prompts
+from _version import __version__
 
 prompt_bp = Blueprint('prompt', __name__, url_prefix='/')
 
@@ -42,7 +43,7 @@ def add_prompt(app=None):
         return redirect(url_for('home'))
 
     # Render the add user form
-    return render_template('add_prompt.html')
+    return render_template('add_prompt.html', app_version=__version__)
 
 
 @prompt_bp.route('/list_prompts')
@@ -51,7 +52,7 @@ def list_prompts():
     """List all prompts"""
     prompt_objs = []
     prompts = Prompts.get_all_prompts(prompt_objs)
-    return render_template('list_prompts.html', prompts=prompts)
+    return render_template('list_prompts.html', prompts=prompts, app_version=__version__)
 
 
 @prompt_bp.route('/delete_prompt/<int:prompt_id>', methods=['POST'])
@@ -69,4 +70,4 @@ def delete_prompt(prompt_id):
     conn.commit()
     conn.close()
 
-    return redirect(url_for('prompt.list_prompts'))
+    return redirect(url_for('prompt.list_prompts', app_version=__version__))

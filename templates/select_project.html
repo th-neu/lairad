@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Start Worker{% endblock %}
+
+{% block content %}
+  <h1>Start Worker</h1>
+  <form method="post">
+    <div class="mb-3">
+      <label for="project" class="form-label">Select Project</label>
+      <select class="form-select" id="project" name="project">
+        {% for project in projects %}
+          <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Start Worker</button>
+  </form>
+{% endblock %}

@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from db import get_db
 from models import Projects
+from _version import __version__
 
 project_bp = Blueprint('project', __name__, url_prefix='/')
 
@@ -25,7 +26,7 @@ def add_project(app=None):
         project_goal = request.form['project_goal']
 
         # Save the project details to the database
-        conn = get_db(app)
+        conn = get_db()
         c = conn.cursor()
         c.execute(
             'INSERT INTO projects (name, description, goals)'
@@ -37,7 +38,7 @@ def add_project(app=None):
         return redirect(url_for('home'))
 
     # Render the add user form
-    return render_template('add_project.html')
+    return render_template('add_project.html', app_version=__version__)
 
 
 @project_bp.route('/list_projects')
@@ -45,8 +46,8 @@ def add_project(app=None):
 def list_projects():
     """List all projets"""
     project_objs = []
-    projects = Projects.get_all_projects(project_objs)
-    return render_template('list_projects.html', projects=projects)
+    projects = Projects.get_all_projects()
+    return render_template('list_projects.html', projects=projects , app_version=__version__)
 
 
 @project_bp.route('/delete_project/<int:project_id>', methods=['POST'])

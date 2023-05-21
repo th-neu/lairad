@@ -6,6 +6,7 @@ from flask import redirect, url_for
 from flask_login import login_required, current_user
 from db import get_db
 from models import User
+from _version import __version__
 
 
 user_bp = Blueprint('user', __name__, url_prefix='/')
@@ -25,7 +26,7 @@ def add_user(app=None):
         is_admin = request.form.get('is_admin') == 'True'
 
         # Save the user details to the database
-        conn = get_db(app)
+        conn = get_db()
         c = conn.cursor()
         c.execute(
             'INSERT INTO users (username, password, is_admin)'
@@ -37,7 +38,7 @@ def add_user(app=None):
         return redirect(url_for('home'))
 
     # Render the add user form
-    return render_template('add_user.html')
+    return render_template('add_user.html', app_version=__version__)
 
 
 @user_bp.route('/list_users')
@@ -46,7 +47,7 @@ def list_users():
     """List all users"""
     user_objs = []
     users = User.get_all_users(user_objs)
-    return render_template('list_users.html', users=users)
+    return render_template('list_users.html', users=users, app_version=__version__)
 
 
 @user_bp.route('/delete_user/<int:user_id>', methods=['POST'])
@@ -64,4 +65,4 @@ def delete_user(user_id):
     conn.commit()
     conn.close()
 
-    return redirect(url_for('user.list_users'))
+    return redirect(url_for('user.list_users', app_version=__version__))

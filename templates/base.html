@@ -31,7 +31,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Menu</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			    {% if current_user.is_admin %}
-				<a class="dropdown-item" href="{{ url_for('worker.select_project') }}">Advance Project</a>
+				<a class="dropdown-item" href="{{ url_for('select_project') }}">Advance Project</a>
 				<div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ url_for('user.add_user') }}">Add User</a>
 				<a class="dropdown-item" href="{{ url_for('project.add_project') }}">Add Project</a>
