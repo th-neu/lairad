@@ -61,8 +61,8 @@ lairad is a local artificial intelligence research and development tool. Same in
 * whoogle-search to have better search control<br>
 * gogs to store files and have a commit history
 
-## !!! This is an alpha !!! 
-Bug and issues are expected. Adding a new Project (Goal), getting basic search results back, storing that information is all that works for now. New commands will be add once everything about search / tasks works smoothly.
+## !!! This is work in Progress !!! 
+Bug and issues are expected.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
