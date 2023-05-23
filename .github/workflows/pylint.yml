@@ -16,8 +16,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Set up mariadbc
       run: |
-        curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash && apt-get update
-        apt-get install -y libmariadb-dev-compat
+        sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash && sudo apt-get update
+        sudo apt-get install -y libmariadb-dev-compat
     - name: Install pylint
       run: |
         python -m pip install --upgrade pip
