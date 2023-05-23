@@ -1,3 +1,6 @@
+"""
+database access
+"""
 import os
 import sqlite3
 import mariadb
@@ -10,6 +13,7 @@ load_dotenv()
 
 
 def get_db():
+    """get db"""
     db = getattr(g, '_database', None)
     if db is None:
         db_type = os.getenv('DB_TYPE')
@@ -36,6 +40,7 @@ def get_db():
 
 
 def close_db():
+    """close db"""
     db = g.pop('_database', None)
     if db is not None:
         db.close()

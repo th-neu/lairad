@@ -168,8 +168,7 @@ class Projects:
             # Assuming the prompt text is in columns 2, 3, and 4
             goal_text = (goal[4])
             return goal_text
-        else:
-            return ""
+        return ""
 
 
 class Prompts:
@@ -210,6 +209,7 @@ class Prompts:
         return prompt_objs
 
     def get_prompt_from_database():
+        """get prompt from database"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
@@ -219,10 +219,10 @@ class Prompts:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt_text = ' '.join(prompt[1:8])
             return prompt_text
-        else:
-            return ""
+        return ""
 
     def get_prompt_first_part():
+        """get prompt first part"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
@@ -232,10 +232,10 @@ class Prompts:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt_text = (prompt[1])
             return prompt_text
-        else:
-            return ""
+        return ""
 
     def get_prompt_second_part():
+        """get prompt second part"""
         conn = get_db()
         c = conn.cursor()
         c.execute('SELECT * FROM prompts LIMIT 1')
@@ -245,5 +245,4 @@ class Prompts:
             # Assuming the prompt text is in columns 2, 3, and 4
             prompt2_text = ' '.join(prompt2[2:8])
             return prompt2_text
-        else:
-            return ""
+        return ""

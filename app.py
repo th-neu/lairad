@@ -1,3 +1,6 @@
+"""
+main app.py
+"""
 # Import the required packages
 import os
 import logging
@@ -251,21 +254,22 @@ def select_project():
         p = start_worker(task, llama_cpp_python_api)
         worker_processes.append(p)
         return 'Worker started'
-    else:
-        # get all projects from the database
-        projects = Projects.get_all_projects()
-        prompts = Prompts.get_all_prompts()
-        return render_template(
-                                'select_project.html',
-                                projects=projects,
-                                prompts=prompts,
-                                app_version=__version__
-                                )
+
+    # get all projects from the database
+    projects = Projects.get_all_projects()
+    prompts = Prompts.get_all_prompts()
+    return render_template(
+                           'select_project.html',
+                           projects=projects,
+                           prompts=prompts,
+                           app_version=__version__
+                           )
 
 
 @app.route('/start_worker', methods=['POST'])
 @login_required
 def start_worker_form():
+    """start worker from form"""
     project_id = request.form['project']
     return redirect(url_for(
                             'worker.start_worker_route',
@@ -298,6 +302,7 @@ def start_worker(task, worker_function):
 
 
 def llama_cpp_python_api(task):
+    """send prompt and goals to api"""
     with app.app_context():
         # Read the prompt text from the database or any other source
         # prompt = Prompts.get_prompt_from_database()
