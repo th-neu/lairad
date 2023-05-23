@@ -61,6 +61,8 @@ lairad is a local artificial intelligence research and development tool. Same in
 * whoogle-search to have better search control<br>
 * gogs to store files and have a commit history
 
+Works will with the gpt4-x-vicuna-13B.ggml.q5_1.bin and WizardLM-30B-Uncensored.ggmlv3.q4_0.bin
+
 ## !!! This is work in Progress !!! 
 Bug and issues are expected.
 
