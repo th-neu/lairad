@@ -283,7 +283,9 @@ def start_worker_route(project_id):
     # task = Projects.get_task_from_database()
     p = start_worker(task, llama_cpp_python_api)
     worker_processes.append(p)
-    return 'Worker started'
+    return render_template('worker_started.html',
+                           app_version=__version__
+                           )
 
 
 def start_worker(task, worker_function):
@@ -302,7 +304,7 @@ def llama_cpp_python_api(task):
         goals = Projects.get_goals_from_database()
         print(goals)
         # Request body
-        prompt3 = prompt1 + "Goals:" + goals + prompt2
+        prompt3 = "### Instruction:" + prompt1 + "Goals: " + goals + prompt2
         data = {
             "temperature": llama_temperature,
             "max_tokens": llama_tokens,
