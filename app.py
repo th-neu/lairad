@@ -254,9 +254,11 @@ def select_project():
     else:
         # get all projects from the database
         projects = Projects.get_all_projects()
+        prompts = Prompts.get_all_prompts()
         return render_template(
                                 'select_project.html',
                                 projects=projects,
+                                prompts=prompts,
                                 app_version=__version__
                                 )
 

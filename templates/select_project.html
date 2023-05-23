@@ -6,6 +6,12 @@
   <h1>Start Worker</h1>
   <form method="post">
     <div class="mb-3">
+	<label for="prompt" class="form-label">Select Prompt</label>
+      <select class="form-select" id="prompt" name="prompt">
+        {% for prompt in prompts %}
+          <option value="{{ prompt.id }}">{{ prompt.intro }}</option>
+        {% endfor %}
+      </select>
       <label for="project" class="form-label">Select Project</label>
       <select class="form-select" id="project" name="project">
         {% for project in projects %}

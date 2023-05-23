@@ -131,7 +131,6 @@ class Projects:
         c = conn.cursor()
         c.execute('SELECT * FROM projects')
         projects = c.fetchall()
-        conn.close()
 
         project_objs = []
         for project in projects:
@@ -192,7 +191,7 @@ class Prompts:
         self.model = model
 
     @staticmethod
-    def get_all_prompts(prompt_objs):
+    def get_all_prompts():
         """Retrieve all prompts from the database"""
         conn = get_db()
         c = conn.cursor()
