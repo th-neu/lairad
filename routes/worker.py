@@ -19,45 +19,6 @@ worker_bp = Blueprint('worker', __name__, url_prefix='/')
 
 worker_processes = []  # Define the worker_processes list
 
-api_url = os.getenv("LLAMA_CCP_API_URL")
-llama_temperature = os.getenv("LLAMA_TEMPERATURE")
-llama_tokens = os.getenv("LLAMA_MAX_TOKEN")
-llama_echo = os.getenv("LLAMA_ECHO")
-llama_request_timeout = int(os.getenv("LLAMA_REQUEST_TIMEOUT"))
-
-
-def llama_cpp_python_api():
-    with current_app.app_context():
-        # Read the prompt text from the database or any other source
-        prompt = Prompts.get_prompt_from_database()
-
-        # Request body
-        data = {
-            "temperature": llama_temperature,
-            "max_tokens": llama_tokens,
-            "stop": ["###"],
-            "prompt": prompt
-        }
-
-        # Send the POST request to the API
-        try:
-            response = requests.post(
-                                    api_url,
-                                    json=data,
-                                    timeout=llama_request_timeout
-                                    )
-        except requests.exceptions.RequestException as e:
-            print(f"An error occurred while sending the request: {e}")
-            exit(1)
-
-        # Process the response or perform any other actions
-        # response_data = response.json()
-        # ...
-        # Implement your response processing logic here
-
-        # You can return a result or update the database if needed
-        # ...
-
 
 @worker_bp.route('/start_worker/<int:project_id>')
 @login_required
@@ -87,20 +48,3 @@ def stop_worker_route():
 def start_worker_form():
     project_id = request.form['project']
     return redirect(url_for('worker.start_worker_route', project_id=project_id))
-
-
-@worker_bp.route('/select_project', methods=['GET', 'POST'])
-@login_required
-def select_project():
-    """select project route"""
-    if request.method == 'POST':
-        # get the selected project from the form
-        project_id = request.form.get('project_id')
-        task = Projects.get_task_from_database()
-        p = start_worker(task, llama_cpp_python_api)
-        worker_processes.append(p)
-        return 'Worker started'
-    else:
-        # get all projects from the database
-        projects = Projects.get_all_projects()
-        return render_template('select_project.html', projects=projects)
