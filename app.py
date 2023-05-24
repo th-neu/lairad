@@ -340,9 +340,6 @@ def llama_cpp_python_api(task):
         # print(response.content)
         data = json.loads(response.content)
         xml_object = data['choices'][0]['text']
-        # response_data = response.json()
-        # json_data = json.loads(json_response)
-        # response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
         print(response)
         print(xml_object)
         # with open('response.txt', 'w') as f:
