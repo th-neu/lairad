@@ -14,7 +14,7 @@ user_bp = Blueprint('user', __name__, url_prefix='/')
 
 @user_bp.route('/add_user', methods=['GET', 'POST'])
 @login_required
-def add_user(app=None):
+def add_user():
     """Define a route for adding a user to the database"""
     if not current_user.is_admin:
         return redirect(url_for('home'))
