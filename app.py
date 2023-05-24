@@ -320,7 +320,7 @@ def llama_cpp_python_api(task):
             # "": prompt2,
             "stop": ["###"]
         }
-        json_data = json.dumps(data)
+        # json_data = json.dumps(data)
         # Send the POST request to the API
         try:
             response = requests.post(
