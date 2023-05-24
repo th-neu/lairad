@@ -30,7 +30,7 @@ def add_prompt(app=None):
         prompt_outro = request.form['prompt_outro']
 
         # Save the project details to the database
-        conn = get_db(app)
+        conn = get_db()
         c = conn.cursor()
         c.execute(
             'INSERT INTO prompts (intro, constraints, commands, resources, performance_eval, response_form, outro)'
@@ -50,7 +50,7 @@ def add_prompt(app=None):
 def list_prompts():
     """List all prompts"""
     prompt_objs = []
-    prompts = Prompts.get_all_prompts(prompt_objs)
+    prompts = Prompts.get_all_prompts()
     return render_template(
                            'list_prompts.html',
                            prompts=prompts,

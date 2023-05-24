@@ -328,21 +328,23 @@ def llama_cpp_python_api(task):
                                     json=data,
                                     timeout=llama_request_timeout
                                     )
-            print("Request URL:", response.request.url)
-            print("Request Method:", response.request.method)
-            print("Request Headers:", response.request.headers)
-            print("Request Body:", response.request.body)
+            # print("Request URL:", response.request.url)
+            # print("Request Method:", response.request.method)
+            # print("Request Headers:", response.request.headers)
+            # print("Request Body:", response.request.body)
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while sending the request: {e}")
             exit(1)
 
         # Process the response or perform any other actions
-        print(response.content)
-        xml_object = json_data['choices'][0]['text']
-        response_data = response.json()
-        json_data = json.loads(json_response)
+        # print(response.content)
+        data = json.loads(response.content)
+        xml_object = data['choices'][0]['text']
+        # response_data = response.json()
+        # json_data = json.loads(json_response)
         # response_content_string = response.content.decode('utf-8').replace("\\n", "").replace("\\", "")
         print(response)
+        print(xml_object)
         # with open('response.txt', 'w') as f:
         #    f.write(response.content)
         # ...
