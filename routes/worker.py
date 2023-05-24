@@ -46,5 +46,6 @@ def stop_worker_route():
 @worker_bp.route('/start_worker', methods=['POST'])
 @login_required
 def start_worker_form():
+    """start worker route"""
     project_id = request.form['project']
     return redirect(url_for('worker.start_worker_route', project_id=project_id))
