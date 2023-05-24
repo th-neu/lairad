@@ -334,7 +334,7 @@ def llama_cpp_python_api(task):
             # print("Request Body:", response.request.body)
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while sending the request: {e}")
-            exit(1)
+            sys.exit(1)
 
         # Process the response or perform any other actions
         # print(response.content)
