@@ -7,6 +7,7 @@ import logging
 import traceback
 import multiprocessing
 import json
+import sys
 from time import strftime
 from logging.handlers import RotatingFileHandler
 from logging.config import dictConfig
@@ -26,6 +27,7 @@ from theme import theme_bp
 from routes.project import project_bp
 from routes.user import user_bp
 from routes.prompt import prompt_bp
+from routes.xml_process import process_xml_response
 from _version import __version__
 
 
@@ -305,50 +307,30 @@ def llama_cpp_python_api(task):
     """send prompt and goals to api"""
     with app.app_context():
         # Read the prompt text from the database or any other source
-        # prompt = Prompts.get_prompt_from_database()
         prompt1 = Prompts.get_prompt_first_part()
         prompt2 = Prompts.get_prompt_second_part()
         goals = Projects.get_goals_from_database()
-        print(goals)
-        # Request body
         prompt3 = "### Instruction:" + prompt1 + "Goals: " + goals + prompt2
         data = {
             "temperature": llama_temperature,
             "max_tokens": llama_tokens,
             "prompt": prompt3,
-            # "goals": goals,
-            # "": prompt2,
             "stop": ["###"]
         }
-        # json_data = json.dumps(data)
-        # Send the POST request to the API
         try:
             response = requests.post(
-                                    os.getenv("LLAMA_CCP_API_URL"),
-                                    json=data,
-                                    timeout=llama_request_timeout
-                                    )
-            # print("Request URL:", response.request.url)
-            # print("Request Method:", response.request.method)
-            # print("Request Headers:", response.request.headers)
-            # print("Request Body:", response.request.body)
+                                   os.getenv("LLAMA_CCP_API_URL"),
+                                   json=data,
+                                   timeout=llama_request_timeout
+                                   )
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while sending the request: {e}")
             sys.exit(1)
 
-        # Process the response or perform any other actions
-        # print(response.content)
         data = json.loads(response.content)
         xml_object = data['choices'][0]['text']
         print(response)
-        print(xml_object)
-        # with open('response.txt', 'w') as f:
-        #    f.write(response.content)
-        # ...
-        # Implement your response processing logic here
-
-        # You can return a result or update the database if needed
-        # ...
+        process_xml_response(xml_object)
 
 
 if __name__ == '__main__':

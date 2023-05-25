@@ -162,7 +162,7 @@ class Projects:
         c = conn.cursor()
         c.execute('SELECT * FROM projects LIMIT 1')
         goal = c.fetchone()
-        conn.close()
+        
 
         if goal:
             # Assuming the prompt text is in columns 2, 3, and 4
@@ -246,3 +246,20 @@ class Prompts:
             prompt2_text = ' '.join(prompt2[2:8])
             return prompt2_text
         return ""
+
+
+class Thoughts:
+    """Define a Thoughts class"""
+    def __init__(
+                 self, id, project_id, thought_text, reasoning_text,
+                 plan, criticism, command, command_args
+                ):
+        """init function"""
+        self.id = id
+        self.project_id = project_id
+        self.thought_text = thought_text
+        self.reasoning_text = reasoning_text
+        self.plan = plan
+        self.criticism = criticism
+        self.command = command
+        self.command_args = command_args
