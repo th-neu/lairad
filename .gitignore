@@ -173,3 +173,6 @@ prompt.txt
 prompt2.txt
 prompt3.txt
 response.txt
+
+# Workspace
+workspace/*.*
