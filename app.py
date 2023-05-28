@@ -28,6 +28,7 @@ from routes.project import project_bp
 from routes.user import user_bp
 from routes.prompt import prompt_bp
 from routes.xml_process import process_xml_response
+from commands.whoogle_search import search_and_save_results
 from _version import __version__
 
 
@@ -277,6 +278,15 @@ def start_worker_form():
                             'worker.start_worker_route',
                             project_id=project_id)
                             )
+
+
+@app.route('/search')
+@login_required
+def perform_search():
+    # Call the search function
+    search_and_save_results()
+    # Return a response to the client
+    return render_template('search_completed.html', app_version=__version__)
 
 
 @app.route('/start_worker/<int:project_id>')
