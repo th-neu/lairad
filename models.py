@@ -162,7 +162,7 @@ class Projects:
         c = conn.cursor()
         c.execute('SELECT * FROM projects LIMIT 1')
         goal = c.fetchone()
-        
+
 
         if goal:
             # Assuming the prompt text is in columns 2, 3, and 4
